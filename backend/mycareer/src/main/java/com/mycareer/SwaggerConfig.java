@@ -1,4 +1,4 @@
-package com.heartmarket;
+package com.mycareer;
 
 import java.util.Set;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.heartmarket.controller"))
+				.apis(RequestHandlerSelectors.basePackage("com.mycareer.controller"))
 				.paths(PathSelectors.any())
 				.build().consumes(DEFAULT_PRODUCES_AND_CONSUMES).produces(DEFAULT_PRODUCES_AND_CONSUMES);
 	}
