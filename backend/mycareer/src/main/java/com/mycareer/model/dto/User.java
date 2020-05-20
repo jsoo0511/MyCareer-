@@ -15,19 +15,21 @@ import com.mycareer.model.dto.user.Award;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.ToString;
 
 @Entity
-@Table(name = "user")
+@Table(name="user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 public class User {
-
+	
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
 	Integer userId;
+	
 	
 	String email;
 	String password;
@@ -42,6 +44,6 @@ public class User {
 //	String created;
 //	String deleted;
 	
-//	@OneToMany(mappedBy = "aUser", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+//	@OneToMany(mappedBy = "aUser",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 //	Award uAward;
 }
