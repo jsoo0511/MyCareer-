@@ -1,3 +1,4 @@
+
 package com.mycareer.model.dto.user;
 
 import javax.persistence.CascadeType;
@@ -41,3 +42,4 @@ public class Award {
 	@JoinColumn(name="user_id", referencedColumnName = "id")
 	User aUser;
 }
+
