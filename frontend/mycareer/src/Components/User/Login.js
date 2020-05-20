@@ -1,8 +1,9 @@
 import React from "react";
 import { Modal, Button } from "antd";
-import "antd/dist/antd.css";
 import { Form, Input, Checkbox, Tabs } from "antd";
 import { InputNumber } from "antd";
+import "antd/dist/antd.css";
+import "./Login.scss";
 
 // sign up
 const validateMessages = {
@@ -133,11 +134,13 @@ class Login extends React.Component {
                   <Checkbox>로그인 유지하기</Checkbox>
                 </Form.Item>
 
-                <Form.Item {...tailLayout}>
+                <img class="signInGithub" width="200px" src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png" />
+                
+                {/* <Form.Item {...tailLayout}> */}
                   <Button type="primary" htmlType="submit">
                     로그인 하기
                   </Button>
-                </Form.Item>
+                {/* </Form.Item> */}
               </Form>
             </TabPane>
             <TabPane tab="회원가입" key="2">
@@ -174,6 +177,7 @@ class Login extends React.Component {
                 <Form.Item name={["user", "introduction"]} label="내 소개">
                   <Input.TextArea />
                 </Form.Item>
+                
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
                     가입하기
