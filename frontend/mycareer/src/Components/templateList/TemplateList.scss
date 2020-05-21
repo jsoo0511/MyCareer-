@@ -1,15 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
-@font-face { font-family: '116watermelon'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/116watermelon.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face {
+    font-family: "116watermelon";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.0/116watermelon.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
 body {
     margin: 0;
 }
 .templateList {
     width: 80%;
     margin: 0px auto;
-    .header{
+    .header {
         // font-family: "116watermelon";
-        font-family: 'Nanum Gothic Coding', monospace; 
+        font-family: "Nanum Gothic Coding", monospace;
     }
     .list {
         width: 100%;
@@ -42,7 +48,7 @@ body {
                     -ms-transition: 0.3s;
                     -o-transition: 0.3s;
                     transition: 0.3s;
-                    filter: grayscale(100%)
+                    filter: grayscale(100%);
                 }
                 img:hover {
                     -webkit-transform: scale(1.2);
