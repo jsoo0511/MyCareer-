@@ -1,0 +1,109 @@
+.portfolio {
+    font-family: "Nanum Gothic Coding", monospace;
+    width: 70%;
+    margin: 0px auto;
+    .header {
+        width: 100vw;
+        height: 60px;
+        box-shadow: 0 1px 3px 0.5px rgb(204, 204, 204);
+        position: fixed;
+        top: 0px;
+        left: 0;
+        z-index: 10;
+        background-color: white;
+        .back {
+            position: fixed;
+            button {
+                border: 0;
+                background-color: white;
+                width: 60px;
+                cursor: pointer;
+                margin: 10px;
+                img {
+                    width: 40px;
+                }
+            }
+        }
+        .title {
+            position: fixed;
+            top: 0;
+            margin-left: 80px;
+        }
+        .copy {
+            position: fixed;
+            top: 0;
+            right: 160px;
+            button {
+                border: 0;
+                border-radius: 5px;
+                background-color: rgb(173, 192, 201);
+                width: 130px;
+                height: 40px;
+                margin: 10px;
+                color: white;
+                cursor: pointer;
+                img {
+                    width: 50px;
+                }
+            }
+        }
+        .export {
+            position: fixed;
+            top: 0;
+            right: 15px;
+            button {
+                border: 0;
+                border-radius: 5px;
+                background-color: rgb(173, 201, 180);
+                width: 130px;
+                height: 40px;
+                margin: 10px;
+                color: white;
+                cursor: pointer;
+                img {
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+    .personal {
+        margin-top: 100px;
+        margin-bottom: 30px;
+        .userpf{
+            margin-bottom: 30px;
+        }
+        .info {
+            display: inline-block;
+            width: 70%;
+            height: 250px;
+            background-color: rgb(204, 204, 204);
+            // margin-right: 3%;
+            text-align: center;
+        }
+
+        .profile {
+            display: inline-block;
+            // position: inherit;
+            width: 29%;
+            margin-left: 1%;
+            vertical-align: top;
+            text-align: center;
+            img{
+                width: 100%;
+                max-width: 180px;
+                margin-top: 11%;
+            }
+        }
+    }
+
+    .pf {
+        width: 100%;
+        height: 500px;
+        background-color: rgb(173, 192, 201);
+        margin-top: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+        
+    }
+}
