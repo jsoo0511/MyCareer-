@@ -1,5 +1,24 @@
 # Backend
 
+
+
+### 현재 AWS에 배포가 되지 않은 상황입니다.
+
+
+
+1. SWAGGER-UI
+
+```
+http://13.124.227.192:8080/swagger-ui.html
+```
+
+2. 개발 환경
+   + Spring boot
+   + MySQL
+   + 추후 추가 예정
+
+
+
 > ### Project
 
 1. Directory Structure
@@ -64,10 +83,15 @@
 
 5. Http methods
 
-   | methods       | POST        | GET                  | PUT                  | DELETE               |
-   | ------------- | ----------- | -------------------- | -------------------- | -------------------- |
-   | /users        | 사용자 등록 | 사용자 전체 조회     |                      |                      |
-   | /users/userid |             | 사용자 ‘userid’ 조회 | 사용자 ‘userid’ 수정 | 사용자 ‘userid’ 삭제 |
+   | methods              | POST            | GET                  | PUT                  | DELETE               |
+   | -------------------- | --------------- | -------------------- | -------------------- | -------------------- |
+   | /users               | 사용자 등록     | 사용자 전체 조회     |                      |                      |
+   | /users/{userid}      |                 | 사용자 ‘userid’ 조회 | 사용자 ‘userid’ 수정 | 사용자 ‘userid’ 삭제 |
+   | /users/award         | 수상 경력 등록  | 수상경력 전체 조회   |                      |                      |
+   | /users/career        | 경력 사항 등록  | 경력 사항 조회       | 경력 사항 수정       | 경력 사항 삭제       |
+   | /users/language      | 사용 언어 등록  | 사용 언어 조회       | 사용 언어 수정       | 사용 언어 삭제       |
+   | /users/qualification | 자격 사항 등록  | 자격 사항 조회       | 자격 사항 수정       | 자격 사항 삭제       |
+   | /users/url           | 블로그 url 등록 | 블로그 url  조회     | 블로그 url 수정      | 블로그 url 삭제      |
 
    
 
