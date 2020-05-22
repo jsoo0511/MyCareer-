@@ -10,7 +10,7 @@ npm install
 
 ## 목차
 1. [메인 화면](#메인화면-(main)) <br/>
-2. [Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
+2. [Sign In & Sign Up](#sign-in-&-sign-up) <br/>
 3. [User Info](#user-info) <br/>
 4. [Project List](#project-list) <br/>
 5. [Template List](#template-list) <br/>
@@ -24,7 +24,7 @@ npm install
 - 메인화면으로 저희 서비스의 내용과 사용방법등을 확인할 수 있습니다.
 - 시작하기 버튼을 눌러 서비스를 시작할 수 있습니다.
 
-### ✅ Sign In & Sign Up
+### Sign In & Sign Up✅ 
 
 ![로그인](./capture/로그인.PNG)
 
