@@ -1,0 +1,48 @@
+#main-container {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  background-color: rgb(216, 111, 111);
+
+  #main-leftblock {
+    position: absolute;
+    width: 700px;
+    height: 750px;
+    background-color: rgb(22, 23, 107);
+    right: 0;
+    top: 80px;
+
+    #main-headtext {
+      margin-top: 200px;
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 2px;
+      color: rgb(231, 231, 231);
+    }
+
+    #main-start {
+      background-color: rgb(240, 240, 240);
+      width: 200px;
+      height: 70px;
+      font-weight: bold;
+      font-size: 32px;
+      color: rgb(53, 53, 53);
+      text-align: center;
+      line-height: 70px;
+      border-radius: 5px;
+      margin: auto;
+      margin-top: 100px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  #main-img {
+    position: absolute;
+    left: 200px;
+    top: 200px;
+  }
+}
