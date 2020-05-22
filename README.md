@@ -44,6 +44,14 @@
 
 
 
+> #### WireFrame
+
+![와이어프레임1](Study/img/와이어프레임1.jpg)
+
+
+
+![와이어프레임2](Study/img/와이어프레임2.jpg)
+
 > ### Frontend
 
 1. Frontend 진행 상황
