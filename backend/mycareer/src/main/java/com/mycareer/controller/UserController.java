@@ -55,4 +55,6 @@ public class UserController {
 			return new ResponseEntity<Object>(aList, HttpStatus.OK);
 		}
 	}
+	
+	// Career 관련 
 }
