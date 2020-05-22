@@ -6,6 +6,7 @@
 > s02p31a103/frontend/mycareer 경로에서 해당 명령문을 입력해주세요.
 ```
 npm install
+npm start
 ```
 
 ## 목차
@@ -24,7 +25,7 @@ npm install
 - 메인화면으로 저희 서비스의 내용과 사용방법등을 확인할 수 있습니다.
 - 시작하기 버튼을 눌러 서비스를 시작할 수 있습니다.
 
-### Sign In & Sign Up✅ 
+### Sign In & Sign Up
 
 ![로그인](./capture/로그인.PNG)
 
@@ -39,7 +40,7 @@ npm install
 
 - 회원정보 확인 및 수정을 할 수 있습니다.
 
-### 🎨 Project List
+### Project List
 
 ![프로젝트리스트](./capture/프로젝트리스트.PNG)
 
