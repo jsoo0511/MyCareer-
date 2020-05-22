@@ -6,6 +6,7 @@
 > s02p31a103/frontend/mycareer 경로에서 해당 명령문을 입력해주세요.
 ```
 npm install
+npm start
 ```
 
 ## 목차
