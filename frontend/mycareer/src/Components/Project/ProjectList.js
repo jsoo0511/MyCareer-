@@ -77,7 +77,7 @@ class ProjectList extends React.Component {
         <Row className="ProjectRow">
           <Col span={12} offset={6}>
             <div className="MainDiv">
-              <h2>My Career</h2>
+              <h2>Project List</h2>
               <br />
               <Row>
               <Col span={12}>
