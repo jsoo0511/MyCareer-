@@ -1,0 +1,28 @@
+#header-container {
+  width: 100%;
+  height: 80px;
+  background-color: rgb(245, 234, 234);
+
+  #header-title {
+    display: inline-block;
+    font-size: 36px;
+    line-height: 80px;
+    letter-spacing: 5px;
+    margin-left: 50px;
+    font-weight: bold;
+    color: rgb(35, 35, 35);
+  }
+
+  #header-login {
+    display: inline-block;
+    position: absolute;
+    font-size: 24px;
+    color: rgb(35, 35, 35);
+    top: 20px;
+    right: 50px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
