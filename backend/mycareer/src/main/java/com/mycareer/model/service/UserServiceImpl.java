@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mycareer.model.dto.User;
+import com.mycareer.model.dto.user.Award;
+import com.mycareer.model.repo.AwardRepository;
 import com.mycareer.model.repo.UserRepository;
 
 @Service
@@ -15,6 +17,10 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository ur;
+	
+	@Autowired
+	private AwardRepository ar;
+	
 	@Override
 	public User findByUserId(int userId) {
 		try {
@@ -39,5 +45,19 @@ public class UserServiceImpl implements UserService{
 		}
 		return null;
 	}
+	@Override
+	public List<Award> findAllByUserId(int userId) {
+		try {
+			if(Objects.isNull(ar.findAllByaUserUserId(userId)))
+				return null;
+			else
+				return ar.findAllByaUserUserId(userId);
+			
+		}catch(Exception e) {
+			e.printStackTrace();			
+			return null;
+		}
+	}
 
+	
 }

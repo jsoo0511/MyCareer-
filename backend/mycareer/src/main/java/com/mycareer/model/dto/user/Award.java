@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class Award {
 
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer awardNo;
 	
