@@ -9,8 +9,9 @@ npm install
 ```
 
 ## 목차
-[1. 메인 화면](#메인화면-(main))
-[2. Sign In & Sign Up](#✅ -sign -in-&-sign-up)
+[1. 메인 화면](#메인화면-(main)) <br/>
+[2. Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
+[3. User Info](#user-info)
 
 ### 메인화면 (Main)
 
