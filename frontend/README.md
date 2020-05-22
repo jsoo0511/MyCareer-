@@ -2,13 +2,13 @@
 
 ## frontend
 
-## Getting Started
+## 🔥 Getting Started
 > s02p31a103/frontend/mycareer 경로에서 해당 명령문을 입력해주세요.
 ```
 npm install
 ```
 
-### ✅ Sign In & Sign Up ✅
+### ✅ Sign In & Sign Up
 ![로그인](./capture/로그인.PNG)
 
 ![회원가입](./capture/회원가입.PNG)
@@ -16,7 +16,7 @@ npm install
 - 로그인 버튼을 누르면 모달창으로 표시되며 탭하여 회원가입으로 이동할 수 있습니다.
 - 깃허브 소셜로그인을 구현할 예정입니다.
 
-### Project List
+### 🎨 Project List
 
 ![프로젝트리스트](./capture/프로젝트리스트.PNG)
 
