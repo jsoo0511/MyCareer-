@@ -8,6 +8,9 @@
 npm install
 ```
 
+## 목차
+[메인 화면](# 메인화면-(main))
+
 ### 메인화면 (Main)
 
 ![메인화면](./capture/메인.PNG)
