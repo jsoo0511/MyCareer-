@@ -10,9 +10,11 @@ npm start
 ```
 
 ## 목차
-[1. 메인 화면](#메인화면-(main)) <br/>
-[2. Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
-[3. User Info](#user-info)
+1. [메인 화면](#메인화면-(main)) <br/>
+2. [Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
+3. [User Info](#user-info) <br/>
+4. [Project List](#project-list) <br/>
+5. [Template List](#template-list) <br/>
 
 ### 메인화면 (Main)
 
