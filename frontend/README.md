@@ -6,7 +6,13 @@
 > s02p31a103/frontend/mycareer 경로에서 해당 명령문을 입력해주세요.
 ```
 npm install
+npm start
 ```
+
+## 목차
+[1. 메인 화면](#메인화면-(main)) <br/>
+[2. Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
+[3. User Info](#user-info)
 
 ### 메인화면 (Main)
 
