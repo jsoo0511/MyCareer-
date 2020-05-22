@@ -58,7 +58,7 @@
 
 1. ##### ERD
 
-   ![image-20200522151703187](C:\Users\Rekain\Desktop\sub3\s02p31a103\Study\img\image-20200522151703187.png)
+   ![image-20200522151703187](Study/img/image-20200522151703187.png)
 
    + DB 수정 사항
 
