@@ -72,8 +72,6 @@
 
 2.  Backend 진행 상황
 
-   + ```
-     [Backend-ReadMe](backend/README.md)
-     ```
-
+   + [Backend-ReadMe](backend/README.md)
+     
      
