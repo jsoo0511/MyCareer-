@@ -36,7 +36,7 @@
 
 
 + **개념**
-  + ![image-20200522021956794](C:\Users\Rekain\Desktop\sub3\s02p31a103\Study\img\image-20200522021956794.png)
+  + ![image-20200522021956794](img/image-20200522021956794.png)
 
 
 
