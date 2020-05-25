@@ -12,7 +12,6 @@ import com.mycareer.model.dto.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	User findByUserId(int userId);
-
 	List<User> findAll();
 
 }

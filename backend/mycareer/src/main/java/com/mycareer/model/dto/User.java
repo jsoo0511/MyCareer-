@@ -15,6 +15,7 @@ import com.mycareer.model.dto.user.Award;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -23,6 +24,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 public class User {
 	
 	@Id

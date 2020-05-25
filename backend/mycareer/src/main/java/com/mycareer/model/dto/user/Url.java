@@ -29,6 +29,7 @@ public class Url {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer urlId;
 	
+	@Column(name="url")
 	String url;
 	
 	@Column(name = "url_info")

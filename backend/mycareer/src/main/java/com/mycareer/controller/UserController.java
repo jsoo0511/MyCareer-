@@ -5,17 +5,25 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.user.Award;
+import com.mycareer.model.dto.user.Qualification;
+import com.mycareer.model.dto.user.Url;
 import com.mycareer.model.service.UserService;
 
 @RestController
@@ -54,5 +62,73 @@ public class UserController {
 		}else {
 			return new ResponseEntity<Object>(aList, HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping(value = "users/qualifications/{userId}")
+	public ResponseEntity<Object> findAllByQualificationUserId(int userId){
+		List<Qualification> qList=us.findAllByqUserUserId(userId);
+		if(Objects.isNull(qList)) 
+			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<Object>(qList,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping(value= "users/url/{userId}")
+	public ResponseEntity<Object> findAllByUrlUserId(int userId){
+		List<Url> uList=us.findAllByuUserUserId(userId);
+		if(Objects.isNull(uList)) 
+			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<Object>(uList,HttpStatus.OK);
+		
+	}
+	
+	@PostMapping(value="users/qualifications")
+	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
+		try {			
+			Qualification result=us.saveQ(q);
+			if(Objects.isNull(result))
+				return new ResponseEntity<Object>(null,HttpStatus.CONFLICT);
+			else
+				return new ResponseEntity<Object>(result,HttpStatus.OK);
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PostMapping(value="users/urls")
+	public ResponseEntity<Object> saveUrl(@RequestBody Url u){
+		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlId());
+		System.out.println(u.getUUser());
+		try {
+			Url result=us.saveUrl(u);
+			if(Objects.isNull(result))
+				return new ResponseEntity<Object>(null,HttpStatus.CONFLICT);
+			else
+				return new ResponseEntity<Object>(result,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+		}
+	}
+	@DeleteMapping(value="users/qualifications")
+	public ResponseEntity<Object> deleteQualifications(@RequestParam int qId){
+		int result=us.deleteByqualificationId(qId);
+		if(result==1)
+			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
+		else
+			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
+	}
+	
+	@DeleteMapping(value="users/urls")
+	public ResponseEntity<Object> deleteUrls(@RequestParam int uId){
+		int result=us.deleteByurlId(uId);
+		System.out.println(result);
+		if(result==1)
+			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
+		else
+			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
 	}
 }

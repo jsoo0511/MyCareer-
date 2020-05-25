@@ -16,12 +16,14 @@ import com.mycareer.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "qualification")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Qualification {
 
 	
