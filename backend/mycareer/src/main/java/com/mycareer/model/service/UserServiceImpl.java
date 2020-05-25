@@ -56,6 +56,22 @@ public class UserServiceImpl implements UserService{
 		return null;
 	}
 	
+	// 로그인
+	@Override
+	@Override
+	public boolean login(String email, String password) {
+		try {
+			User loginUser = ur.findByEmail(email);
+			if(Objects.isNull(loginUser)) {
+				throw
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	@Override
 	public List<Award> findAllByUserId(int userId) {
 		try {
