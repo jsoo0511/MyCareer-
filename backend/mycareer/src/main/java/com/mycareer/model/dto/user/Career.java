@@ -16,18 +16,19 @@ import com.mycareer.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "career")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 public class Career {
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer careerId;
+	int careerId;
 	
 	@Column(name = "c_title")
 	String careerTitle;
@@ -40,4 +41,15 @@ public class Career {
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="user_id", referencedColumnName = "id")
 	User cUser;
+
+	public Career(int careerId, String careerTitle, String start, String end, String detail) {
+		super();
+		this.careerId = careerId;
+		this.careerTitle = careerTitle;
+		this.start = start;
+		this.end = end;
+		this.detail = detail;
+	}
+	
+	
 }

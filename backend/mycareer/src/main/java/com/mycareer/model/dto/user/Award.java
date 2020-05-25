@@ -25,7 +25,7 @@ public class Award {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer awardNo;
+	int awardNo;
 	
 	@Column(name="a_title")
 	String aTitle;

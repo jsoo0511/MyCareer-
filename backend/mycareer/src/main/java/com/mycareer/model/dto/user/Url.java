@@ -27,7 +27,7 @@ public class Url {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer urlId;
+	int urlId;
 	
 	@Column(name="url")
 	String url;
