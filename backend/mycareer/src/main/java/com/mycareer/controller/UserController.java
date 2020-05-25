@@ -86,6 +86,8 @@ public class UserController {
 	
 	@PostMapping(value="users/qualifications")
 	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
+		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationId());
+		System.out.println(q.getQUser());
 		try {			
 			Qualification result=us.saveQ(q);
 			if(Objects.isNull(result))
