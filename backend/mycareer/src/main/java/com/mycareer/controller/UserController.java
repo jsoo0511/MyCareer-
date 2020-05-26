@@ -26,6 +26,8 @@ import com.mycareer.model.dto.user.Qualification;
 import com.mycareer.model.dto.user.Url;
 import com.mycareer.model.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @CrossOrigin("*")
 public class UserController {
@@ -36,7 +38,7 @@ public class UserController {
 //	@RequestMapping(method = RequestMethod.GET, value = "user/{userNo}")
 	@GetMapping(value = "users/{userNo}")
 	public ResponseEntity<Object> findOne(@PathVariable int userNo){
-		User tUser = us.findByUserId(userNo);
+		User tUser = us.findByUserNo(userNo);
 		if(Objects.isNull(tUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
 		}else {
@@ -54,9 +56,33 @@ public class UserController {
 		}
 	}
 	
+	@GetMapping(value = "users/login")
+	@ApiOperation(value = "유저 로그인")
+	public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password){
+		User loginUser = us.login(email, password);
+		if(Objects.isNull(loginUser)) {
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
+		}else {
+			return new ResponseEntity<Object>(loginUser, HttpStatus.OK);
+			
+		}
+	}
+	
+	@PostMapping(value = "users/register")
+	@ApiOperation(value = "유저 회원가입")
+	public ResponseEntity<Object> register(@RequestBody User user){
+		User registerUser = us.signUp(user);
+		if(Objects.isNull(registerUser)) {
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+		}else {
+			return new ResponseEntity<Object>(registerUser, HttpStatus.CREATED);
+		}
+		
+	}
+	
 	@GetMapping(value = "users/awards")
-	public ResponseEntity<Object> findAllByAwardUserId(int userId){
-		List<Award> aList = us.findAllByUserId(userId);
+	public ResponseEntity<Object> findAllByAwardUserNo(int userNo){
+		List<Award> aList = us.findAllByUserNo(userNo);
 		if(Objects.isNull(aList)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
 		}else {
@@ -64,9 +90,9 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping(value = "users/qualifications/{userId}")
-	public ResponseEntity<Object> findAllByQualificationUserId(int userId){
-		List<Qualification> qList=us.findAllByqUserUserId(userId);
+	@GetMapping(value = "users/qualifications/{userNo}")
+	public ResponseEntity<Object> findAllByQualificationUserNo(int userNo){
+		List<Qualification> qList=us.findAllByqUserUserNo(userNo);
 		if(Objects.isNull(qList)) 
 			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
 		else
@@ -74,9 +100,9 @@ public class UserController {
 		
 	}
 	
-	@GetMapping(value= "users/url/{userId}")
-	public ResponseEntity<Object> findAllByUrlUserId(int userId){
-		List<Url> uList=us.findAllByuUserUserId(userId);
+	@GetMapping(value= "users/url/{userNo}")
+	public ResponseEntity<Object> findAllByUrlUserNo(int userNo){
+		List<Url> uList=us.findAllByuUserUserNo(userNo);
 		if(Objects.isNull(uList)) 
 			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
 		else
@@ -86,7 +112,7 @@ public class UserController {
 	
 	@PostMapping(value="users/qualifications")
 	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
-		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationId());
+		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
 		System.out.println(q.getQUser());
 		try {			
 			Qualification result=us.saveQ(q);
@@ -102,7 +128,7 @@ public class UserController {
 	
 	@PostMapping(value="users/urls")
 	public ResponseEntity<Object> saveUrl(@RequestBody Url u){
-		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlId());
+		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlNo());
 		System.out.println(u.getUUser());
 		try {
 			Url result=us.saveUrl(u);
@@ -116,8 +142,8 @@ public class UserController {
 		}
 	}
 	@DeleteMapping(value="users/qualifications")
-	public ResponseEntity<Object> deleteQualifications(@RequestParam int qId){
-		int result=us.deleteByqualificationId(qId);
+	public ResponseEntity<Object> deleteQualifications(@RequestParam int qNo){
+		int result=us.deleteByqualificationNo(qNo);
 		if(result==1)
 			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
 		else
@@ -125,8 +151,8 @@ public class UserController {
 	}
 	
 	@DeleteMapping(value="users/urls")
-	public ResponseEntity<Object> deleteUrls(@RequestParam int uId){
-		int result=us.deleteByurlId(uId);
+	public ResponseEntity<Object> deleteUrls(@RequestParam int uNo){
+		int result=us.deleteByurlNo(uNo);
 		System.out.println(result);
 		if(result==1)
 			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);

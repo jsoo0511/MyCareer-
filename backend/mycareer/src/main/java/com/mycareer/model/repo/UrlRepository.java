@@ -11,8 +11,8 @@ import com.mycareer.model.dto.user.Url;
 
 @Repository
 public interface UrlRepository extends JpaRepository<Url, Integer>{
-	List<Url> findAllByuUserUserId(int userid);
+	List<Url> findAllByuUserUserNo(int userNo);
 	@Transactional
-	int deleteByurlId(int urlId);
+	int deleteByurlNo(int urlNo);
 
 }

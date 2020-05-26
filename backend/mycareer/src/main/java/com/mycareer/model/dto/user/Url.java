@@ -25,9 +25,9 @@ import lombok.NoArgsConstructor;
 public class Url {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "url_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int urlId;
+	int urlNo;
 	
 	@Column(name="url")
 	String url;
@@ -36,7 +36,7 @@ public class Url {
 	String urlInfo;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="user_id", referencedColumnName = "id")
+	@JoinColumn(name="user_no", referencedColumnName = "user_no")
 	User uUser;
 
 }

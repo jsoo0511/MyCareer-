@@ -21,150 +21,197 @@ import com.mycareer.model.repo.LanguageRepository;
 import com.mycareer.model.repo.UserRepository;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository ur;
-	
+
 	@Autowired
 	private AwardRepository ar;
-	
+
 	@Autowired
 	private QualificationRepository qr;
-	
+
 	@Autowired
 	UrlRepository Urlr;
 	private CareerRepository cr;
-	
+
 	@Autowired
 	private LanguageRepository lr;
-	
+
 	@Override
-	public User findByUserId(int userId) {
+	public User findByUserNo(int userNo) {
 		try {
-			User user=ur.findByUserId(userId);
+			User user = ur.findByUserNo(userNo);
 			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
+
 	@Override
 	// 모든 유저 정보 찾기
 	public List<User> findAll() {
 		try {
-			if(Objects.isNull(ur.findAll()))
+			if (Objects.isNull(ur.findAll()))
 				return null;
 			else
 				return ur.findAll();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	@Override
-	public List<Award> findAllByUserId(int userId) {
-		try {
-			if(Objects.isNull(ar.findAllByaUserUserId(userId)))
-				return null;
-			else
-				return ar.findAllByaUserUserId(userId);
-			
-		}catch(Exception e) {
-			e.printStackTrace();			
-			return null;
-		}
-	}
-	
-	@Override
-	public List<Qualification> findAllByqUserUserId(int userId) {
-		try {
-			if(Objects.isNull(qr.findAllByqUserUserId(userId)))
-				return null;
-			else
-				return qr.findAllByqUserUserId(userId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
+	// 로그인
+	@Override
+	public User login(String email, String password) {
+		try {
+			User loginUser = ur.findByEmail(email);
+			if (Objects.isNull(loginUser)) {
+				throw new Exception("가입되지 않은 이메일입니다.");
+			} else {
+				if (loginUser.getPassword().equals(password)) {
+					return loginUser;
+				} else {
+					throw new Exception("비밀번호가 틀렸습니다.");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+
+	// 회원강비
+	@Override
+	public User signUp(User user) {
+		try {
+			User joinUser = ur.findByEmail(user.getEmail());
+			if (Objects.isNull(joinUser)) {
+				ur.save(user);
+				return user;
+			}else {
+				throw new Exception("이미 존재하는 이메일입니다.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Award> findAllByUserNo(int userNo) {
+		try {
+			if (Objects.isNull(ar.findAllByaUserUserNo(userNo)))
+				return null;
+			else
+				return ar.findAllByaUserUserNo(userNo);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/** Qualification 관련 메서드 **/
+
+	@Override
+	public List<Qualification> findAllByqUserUserNo(int userNo) {
+		try {
+			if (Objects.isNull(qr.findAllByqUserUserNo(userNo)))
+				return null;
+			else
+				return qr.findAllByqUserUserNo(userNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	@Override
 	public Qualification saveQ(Qualification q) {
 		try {
-			Qualification result=qr.save(q);
+			Qualification result = qr.save(q);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
+
 	@Override
-	public List<Url> findAllByuUserUserId(int userId) {
+	public List<Url> findAllByuUserUserNo(int userNo) {
 		try {
-			if(Objects.isNull(Urlr.findAllByuUserUserId(userId)))
+			if (Objects.isNull(Urlr.findAllByuUserUserNo(userNo)))
 				return null;
 			else
-				return Urlr.findAllByuUserUserId(userId);
+				return Urlr.findAllByuUserUserNo(userNo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	@Override
-	public int deleteByqualificationId(int qualificationId) {
+	public int deleteByqualificationNo(int qualificationId) {
 		try {
-			qr.deleteByqualificationId(qualificationId);
+			qr.deleteByqualificationNo(qualificationId);
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
+
+	/** Url 관련 메서드 **/
+
 	@Override
-	public int deleteByurlId(int urlId) {
+	public int deleteByurlNo(int urlId) {
 		try {
-			Urlr.deleteByurlId(urlId);
+			Urlr.deleteByurlNo(urlId);
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
+
 	@Override
 	public Url saveUrl(Url u) {
 		try {
-			Url result=Urlr.save(u);
+			Url result = Urlr.save(u);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
-	
+
 	/** Career 관련 **/
 	@Override
-	public List<Career> findAllByCareerUserId(int userId) {
+	public List<Career> findAllByCareerUserNo(int userNo) {
 		try {
-			List<Career> cList = cr.findBycUserUserId(userId);
-			if(Objects.isNull(cList))
+			List<Career> cList = cr.findBycUserUserNo(userNo);
+			if (Objects.isNull(cList))
 				return null;
 			else
 				return cList;
-		}catch(Exception e) {
-			e.printStackTrace();			
+		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	@Override
-	public Object inserIntoCareer(Career career, int userId) {
+	public Object inserIntoCareer(Career career, int userNo) {
 		try {
-			User user = ur.findByUserId(userId);
-			
-			if(Objects.isNull(user))
+			User user = ur.findByUserNo(userNo);
+
+			if (Objects.isNull(user))
 				return null;
 			else {
 				career.setCUser(user);
@@ -176,19 +223,19 @@ public class UserServiceImpl implements UserService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Object deleteAll(int careerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/** Language 관련 **/
 	@Override
-	public List<Language> findAllByLanguageUserId(int userId) {
+	public List<Language> findAllByLanguageUserNo(int userNo) {
 		try {
-			List<Language> lList = lr.findAllBylUserUserId(userId);
-			if(Objects.isNull(lList))
+			List<Language> lList = lr.findAllBylUserUserNo(userNo);
+			if (Objects.isNull(lList))
 				return null;
 			else
 				return lList;
@@ -197,13 +244,13 @@ public class UserServiceImpl implements UserService{
 			return null;
 		}
 	}
-	
+
 	@Override
-	public Object insertIntoLanguage(Language lang, int userId) {
+	public Object insertIntoLanguage(Language lang, int userNo) {
 		try {
-			User user = ur.findByUserId(userId);
-			
-			if(Objects.isNull(user))
+			User user = ur.findByUserNo(userNo);
+
+			if (Objects.isNull(user))
 				return null;
 			else {
 				lang.setLUser(user);
@@ -215,12 +262,11 @@ public class UserServiceImpl implements UserService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Object delete(int languageId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 }

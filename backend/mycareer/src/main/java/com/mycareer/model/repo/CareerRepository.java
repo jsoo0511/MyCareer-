@@ -11,10 +11,10 @@ import com.mycareer.model.dto.user.Career;
 public interface CareerRepository extends JpaRepository<Career, Integer>{
 
 	// 단일 개수로 찾기
-	Career findByCareerId(int careerId);
+	Career findByCareerNo(int careerNo);
 	
 	// 유저 아이디로 모든 경력 찾기
-	List<Career> findBycUserUserId(int userId);
+	List<Career> findBycUserUserNo(int userNo);
 	
 	
 }

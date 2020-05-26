@@ -13,7 +13,7 @@ import com.mycareer.model.dto.user.Qualification;
 @Repository
 public interface QualificationRepository extends JpaRepository<Qualification, Integer>{
 	List<Qualification> findAll();
-	List<Qualification> findAllByqUserUserId(int userId);
+	List<Qualification> findAllByqUserUserNo(int userNo);
 	@Transactional
-	int deleteByqualificationId(int qualificationId);
+	int deleteByqualificationNo(int qualificationNo);
 }

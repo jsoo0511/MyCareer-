@@ -10,7 +10,8 @@ import com.mycareer.model.dto.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 
-	User findByUserId(int userId);
+	User findByUserNo(int userNo);
+	User findByEmail(String email);
 //	List<User> findAll();
 //	List<User> findUsers();
 

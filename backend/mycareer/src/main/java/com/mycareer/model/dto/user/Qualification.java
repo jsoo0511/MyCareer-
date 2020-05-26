@@ -28,9 +28,9 @@ public class Qualification {
 
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "qualification_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int qualificationId;
+	int qualificationNo;
 	
 	@Column(name = "q_title")
 	String qualificationTitle;
@@ -42,7 +42,7 @@ public class Qualification {
 	Integer score;	
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="user_id", referencedColumnName = "id")
+	@JoinColumn(name="user_no", referencedColumnName = "user_no")
 	User qUser;
 }
 

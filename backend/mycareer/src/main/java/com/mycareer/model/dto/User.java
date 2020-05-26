@@ -28,9 +28,9 @@ import lombok.ToString;
 public class User {
 	
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	Integer userId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="user_no")
+	int userNo;
 	
 	
 	String email;
