@@ -8,17 +8,13 @@
 
 1. ##### Front - end
 
-   + React
+   + ![spring badge](https://img.shields.io/badge/zlib-1.0.5-yellowgreen.svg)![spring badge](https://img.shields.io/badge/react.js-16.13.1-blue.svg)![spring badge](https://img.shields.io/badge/typescript-3.7.2-blueviolet.svg)![spring badge](https://img.shields.io/badge/antd-4.2.4-blue.svg)
 
 
 
 2. ##### Back - end
 
-   + Spring 3.9.11
-   + Database
-     + MySQL
-
-
+   + ![spring badge](https://img.shields.io/badge/spring-3.9.11.RELEASE-green.svg)![spring badge](https://img.shields.io/badge/mysql-5.7.30-informational)![spring badge](https://img.shields.io/badge/openjdk-1.8-blue.svg)![spring badge](https://img.shields.io/badge/lombok-1.18.12-inactive.svg)
 
 > ### Rule
 
