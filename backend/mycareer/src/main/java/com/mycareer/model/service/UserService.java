@@ -7,42 +7,51 @@ import org.springframework.stereotype.Service;
 
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.user.Award;
+import com.mycareer.model.dto.user.Qualification;
+import com.mycareer.model.dto.user.Url;
 import com.mycareer.model.dto.user.Career;
 import com.mycareer.model.dto.user.Language;
 
 public interface UserService {
-	User findByUserId(int userId);
+
+	/** User 관련 메서드 **/
 	
-	/** 유저 관련 메서드 **/
+	User findByUserNo(int userNo);
 	List<User> findAll();
-	
-	boolean login(String email, String password);
+	User login(String email, String password);
+	User signUp(User user);
 	
 	// 유저 번호에 해당하는 수상내역 가져오기
-	List<Award> findAllByUserId(int userId);
+	List<Award> findAllByUserNo(int userNo);
+	List<Qualification> findAllByqUserUserNo(int userNo);
+	List<Url> findAllByuUserUserNo(int userNo);
+	int deleteByqualificationNo(int qualificationNo);
+	int deleteByurlNo(int urlNo);
+	Qualification saveQ(Qualification q);
+	Url saveUrl(Url u);
 	
 	
 	
 	/** Career 관련 메서드 **/
 	// 전체 조회
-	List<Career> findAllByCareerUserId(int userId);
+	List<Career> findAllByCareerUserNo(int userNo);
 	
 	// 입력
-	Object inserIntoCareer(Career career, int userId);
+	Object inserIntoCareer(Career career, int userNo);
 	
 	// 삭제
-	Object deleteAll(int careerId);
+	Object deleteAll(int careerNo);
 	
 	
 	/** Language 관련 메서드 **/
 	// 전체 조회
-	List<Language> findAllByLanguageUserId(int userId);
+	List<Language> findAllByLanguageUserNo(int userNo);
 	
 	// 추가
 	// 사용자 아이디
-	Object insertIntoLanguage(Language lang, int userId);
+	Object insertIntoLanguage(Language lang, int userNo);
 	
 	// 삭제
 	// 단일 삭제 or 다중 삭제
-	Object delete(int languageId);
+	Object delete(int languageNo);
 }

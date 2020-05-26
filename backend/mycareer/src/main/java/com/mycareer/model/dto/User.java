@@ -22,14 +22,15 @@ import lombok.ToString;
 @Table(name="user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
 @ToString
+@Setter
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	Integer userId;
+	@Column(name="user_no")
+	int userNo;
 	
 	
 	String email;

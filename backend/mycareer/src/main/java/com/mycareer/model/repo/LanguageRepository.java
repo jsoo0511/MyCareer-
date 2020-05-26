@@ -11,10 +11,10 @@ import com.mycareer.model.dto.user.Language;
 public interface LanguageRepository extends JpaRepository<Language, Integer>{
 	
 	// 단일로 찾기
-	Language findByLanguageId(int languageId);
+	Language findByLanguageNo(int languageNo);
 	
 	// 유저에 해당되는 모든 언어 가져오기
-	List<Language> findAllBylUserUserId(int userId);
+	List<Language> findAllBylUserUserNo(int userNo);
 
 }
 
