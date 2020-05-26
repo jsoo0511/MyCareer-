@@ -17,7 +17,7 @@ function App() {
           <Route path="/Template1" exact component={Template1} />
           <Route path="/Login" exact component={Login} />
           <Route path="/ProjectList" exact component={ProjectList}/>
-          <Route path="/main" exact component={Main} />
+          <Route path="/" exact component={Main} />
           <Route path="/userInfo" exact component={UserInfo} />
           <Route path="/tp-list" component={TemplateList} />
           <Route path="/personal" component={PersonalInfo} />

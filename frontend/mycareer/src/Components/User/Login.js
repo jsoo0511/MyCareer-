@@ -5,6 +5,8 @@ import { InputNumber } from "antd";
 import "antd/dist/antd.css";
 import "./Login.scss";
 
+import axios from "axios";
+
 // sign up
 const validateMessages = {
   required: "${label} is required!",
@@ -64,8 +66,12 @@ class Login extends React.Component {
     });
   };
 
-  signInFinish = (values) => {
+  signInFinish = async (values) => {
     console.log("Success:", values);
+    // 로그인 API 적용
+    await axios
+      .get(`http://13.124.227.192:8080/users/login?email=${values.email}&password=${values.password}`)
+      .then((res) => console.log(res));
   };
 
   signInFinishFailed = (errorInfo) => {
@@ -101,8 +107,8 @@ class Login extends React.Component {
                 onFinishFailed={this.signInFinishFailed}
               >
                 <Form.Item
-                  name="email"
                   label="이메일"
+                  name="email"
                   rules={[{ required: true, type: "email" }]}
                 >
                   <Input />
@@ -122,14 +128,14 @@ class Login extends React.Component {
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                  로그인 하기
-                </Button>
-                <img
-                  class="signInGithub"
-                  width="200px"
-                  src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png"
-                />
+                  <Button type="primary" htmlType="submit">
+                    로그인 하기
+                  </Button>
+                  <img
+                    class="signInGithub"
+                    width="200px"
+                    src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png"
+                  />
                 </Form.Item>
               </Form>
             </TabPane>
