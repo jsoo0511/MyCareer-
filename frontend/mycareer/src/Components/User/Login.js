@@ -70,7 +70,9 @@ class Login extends React.Component {
     console.log("Success:", values);
     // 로그인 API 적용
     await axios
-      .get(`http://13.124.227.192:8080/users/login?email=${values.email}&password=${values.password}`)
+      .get(
+        `http://13.124.227.192:8080/users/login?email=${values.email}&password=${values.password}`
+      )
       .then((res) => console.log(res));
   };
 
@@ -86,7 +88,7 @@ class Login extends React.Component {
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>
-          ✨ 로그인 & 회원가입 ✨
+        로그인
         </Button>
         <Modal
           // title="Sign In ✨ Sign Up"
