@@ -186,4 +186,29 @@
         + updateable : 엔티티 수정 시 이 필드도 같이 수정
         + table : 지정한 필드를 다른 테이블에 mapping
         + nullable : null 허용/불가
-        + 
+
+
+
+* 쿼리 메소드 기능
+
+  * 공통 인터페이스를 사용하게 될 경우 인자값이 3개 이상만 되도 메서드 명이 너무 길어지는 불편함이 있다.
+
+    ```
+    public interface MemberRepository extends JpaRepository<Member,Long>{
+    	List<Member> findByUsernameAndAgeGreaterThan(String name, int age);
+    }
+    ```
+
+    * 위의 예시처럼 name,age두개의 파라미터 만으로 공통 인터페이스 내의 메서드를 사용하려고 할 경우에도 메서드 명이 너무 길어진다.
+    * 그러므로 메서드를 사용할 다른 방법이 필요하다.
+
+    
+
+  * @Query - 공통 인터페이스의 불편함을 개선할 수 있는 방법
+
+    ```
+    @Query("select m from Member m where m.username=:username and m.age=:age")
+    List<Member> findUser(@Param("username") String username, @Param("age") int age)
+    ```
+
+    * 함수명은 임의로 짧게 하고 Query를 통해 원하는 쿼리문을 실행할수있다. 
