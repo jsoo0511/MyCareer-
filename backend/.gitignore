@@ -7,7 +7,7 @@
 build/
 target/
 bin/
-sql/
+sql/ 
 
 dependency-reduced-pom.xml
 
