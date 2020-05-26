@@ -11,10 +11,12 @@ npm start
 
 ## 목차
 1. [메인 화면](#메인화면-(main)) <br/>
-2. [Sign In & Sign Up](#✅ -sign -in-&-sign-up) <br/>
+2. [Sign In & Sign Up](#sign-in-&-sign-up) <br/>
 3. [User Info](#user-info) <br/>
 4. [Project List](#project-list) <br/>
 5. [Template List](#template-list) <br/>
+6. [Personal Information](#personal-information) <br/>
+7. [Portfolio](#portfolio) <br/>
 
 ### 메인화면 (Main)
 
@@ -23,7 +25,7 @@ npm start
 - 메인화면으로 저희 서비스의 내용과 사용방법등을 확인할 수 있습니다.
 - 시작하기 버튼을 눌러 서비스를 시작할 수 있습니다.
 
-### ✅ Sign In & Sign Up
+### Sign In & Sign Up
 
 ![로그인](./capture/로그인.PNG)
 
@@ -38,7 +40,7 @@ npm start
 
 - 회원정보 확인 및 수정을 할 수 있습니다.
 
-### 🎨 Project List
+### Project List
 
 ![프로젝트리스트](./capture/프로젝트리스트.PNG)
 
