@@ -1,1 +1,18 @@
 /.metadata/
+
+
+# Build Artifacts
+
+.gradle/
+build/
+target/
+bin/
+sql/
+
+dependency-reduced-pom.xml
+
+# Eclipse Project Files
+
+.classpath
+.project
+.settings/
