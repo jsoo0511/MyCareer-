@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	// 모든 유저 정보 찾기
 	public List<User> findAll() {
+		// TODO Auto-generated method stub
 		try {
 			if (Objects.isNull(ur.findAll()))
 				return null;
@@ -169,6 +169,29 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+	
+	public Qualification updateQ(Qualification q) {
+		try {
+			Qualification result = qr.save(q);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	@Override
+	public int deleteByqualificationNo(int qualificationId) {
+		try {
+			int result=qr.deleteByqualificationNo(qualificationId);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	/**Url 관련 메서드*/
 
 	@Override
 	public List<Url> findAllByuUserUserNo(int userNo) {
@@ -184,18 +207,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleteByqualificationNo(int qualificationId) {
+	public Url saveUrl(Url u) {
 		try {
-			qr.deleteByqualificationNo(qualificationId);
-			return 1;
+			Url result = Urlr.save(u);
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return 0;
 	}
-
-	/** Url 관련 메서드 **/
-
 	@Override
 	public int deleteByurlNo(int urlId) {
 		try {
@@ -207,16 +227,6 @@ public class UserServiceImpl implements UserService {
 		return 0;
 	}
 
-	@Override
-	public Url saveUrl(Url u) {
-		try {
-			Url result = Urlr.save(u);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 
 	/** Career 관련 **/
 	@Override
@@ -295,5 +305,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
