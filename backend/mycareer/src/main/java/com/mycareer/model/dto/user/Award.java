@@ -23,8 +23,9 @@ import lombok.NoArgsConstructor;
 public class Award {
 
 	@Id
+	@Column(name = "award_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer awardNo;
+	int awardNo;
 	
 	@Column(name="a_title")
 	String aTitle;
@@ -39,7 +40,7 @@ public class Award {
 	String grade;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="user_id", referencedColumnName = "id")
+	@JoinColumn(name="user_no", referencedColumnName = "user_no")
 	User aUser;
 }
 

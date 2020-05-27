@@ -16,18 +16,19 @@ import com.mycareer.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "language")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 public class Language {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "language_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer languageId;
+	int languageNo;
 	
 	@Column(name = "language")
 	String languageName;
@@ -36,7 +37,7 @@ public class Language {
 	String reason;
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="user_id", referencedColumnName = "id")
+	@JoinColumn(name="user_no", referencedColumnName = "user_no")
 	User lUser;
 
 }

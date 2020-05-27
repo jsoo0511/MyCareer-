@@ -15,6 +15,7 @@ import com.mycareer.model.dto.user.Award;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -23,12 +24,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @ToString
+@Setter
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	Integer userId;
+	@Column(name="user_no")
+	int userNo;
 	
 	
 	String email;

@@ -1,7 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'backend' of https://lab.ssafy.com/s02-final/s02p31a103.git
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -16,6 +18,7 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+<<<<<<< HEAD
 =======
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -34,3 +37,5 @@ ReactDOM.render(
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 >>>>>>> ca6549c6110c323afd2e09c2a2d8c6582531f93f
+=======
+>>>>>>> branch 'backend' of https://lab.ssafy.com/s02-final/s02p31a103.git
