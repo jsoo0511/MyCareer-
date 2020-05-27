@@ -16,10 +16,17 @@ public interface UserService {
 	
 	/** User 관련 메서드 **/
 	
+	// USER가 존재하는지 확인
 	User findByUserNo(int userNo);
 	List<User> findAll();
+	// 로그인
 	User login(String email, String password);
+	// 회원가입
 	User signUp(User user);
+	// 회원 정보 수정
+	User updateUser(User user);
+	// 회원 정보 삭제(탈퇴)
+	
 	
 	// 유저 번호에 해당하는 수상내역 가져오기
 	List<Award> findAllByUserNo(int userNo);

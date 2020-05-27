@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,7 @@ public class UserController {
 	
 //	@RequestMapping(method = RequestMethod.GET, value = "user/{userNo}")
 	@GetMapping(value = "users/{userNo}")
+	@ApiOperation(value = "userNo 회원 정보 조회")
 	public ResponseEntity<Object> findOne(@PathVariable int userNo){
 		User tUser = us.findByUserNo(userNo);
 		if(Objects.isNull(tUser)) {
@@ -45,6 +47,18 @@ public class UserController {
 			return new ResponseEntity<Object>(tUser, HttpStatus.OK);
 		}
 	}
+	
+	@PutMapping(value = "users/{userNo}")
+	@ApiOperation(value = "userNo 회원 정보 수정")
+	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user){
+		User tUser = us.findByUserNo(userNo);
+		if(Objects.isNull(tUser)) {
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
+		}else {
+			return new ResponseEntity<Object>(us.updateUser(user), HttpStatus.OK);
+		}
+	}
+	
 	
 	@GetMapping(value = "users")
 	public ResponseEntity<Object> findAll(){
@@ -76,12 +90,12 @@ public class UserController {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		}else {
 			return new ResponseEntity<Object>(registerUser, HttpStatus.CREATED);
-		}
-		
+		}	
 	}
 	
-	@GetMapping(value = "users/awards")
-	public ResponseEntity<Object> findAllByAwardUserNo(int userNo){
+	@GetMapping(value = "users/awards/{userNo}")
+	@ApiOperation(value = "user에 해당되는 award 리스트 조회")
+	public ResponseEntity<Object> findAllByAwardUserNo(@PathVariable int userNo){
 		List<Award> aList = us.findAllByUserNo(userNo);
 		if(Objects.isNull(aList)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);

@@ -33,7 +33,9 @@ public class UserServiceImpl implements UserService {
 	private QualificationRepository qr;
 
 	@Autowired
-	UrlRepository Urlr;
+	private UrlRepository Urlr;
+	
+	@Autowired
 	private CareerRepository cr;
 
 	@Autowired
@@ -48,7 +50,6 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
 	@Override
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	// 회원강비
+	// 회원가입
 	@Override
 	public User signUp(User user) {
 		try {
@@ -102,7 +103,30 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+	
+	// 회원정보 수정
+	@Override
+	public User updateUser(User user) {
+		try {
+			User findUser = ur.findByUserNo(user.getUserNo());
+			if(Objects.isNull(findUser)) {
+				throw new Exception("회원 정보를 불러올 수 없습니다.");
+			}else {
+				ur.save(user);
+				return user;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 회원탈퇴
+	
 
+	/** Award 관련 메서드 **/
+	
+	// 해당 user의 award 리스트 가져오기
 	@Override
 	public List<Award> findAllByUserNo(int userNo) {
 		try {
@@ -116,6 +140,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+	
+	// 해당 user의 award 수정 및 삽입
+	
 
 	/** Qualification 관련 메서드 **/
 
