@@ -23,14 +23,27 @@ public interface UserService {
 	
 	// 유저 번호에 해당하는 수상내역 가져오기
 	List<Award> findAllByUserNo(int userNo);
-	List<Qualification> findAllByqUserUserNo(int userNo);
+	//int deleteByqualificationNo(int qualificationNo);
+	
+	/**Url 관련 메서드*/
+	//전체 조회
 	List<Url> findAllByuUserUserNo(int userNo);
-	int deleteByqualificationNo(int qualificationNo);
-	int deleteByurlNo(int urlNo);
-	Qualification saveQ(Qualification q);
+	
+	//입력, 수정
 	Url saveUrl(Url u);
 	
+	//삭제
+	int deleteByurlNo(int urlNo);
 	
+	/**Qualificatino 관련 메서드*/
+	//전체 조회
+	List<Qualification> findAllByqUserUserNo(int userNo);
+	
+	//입력, 수정
+	Qualification saveQ(Qualification q);
+	
+	//삭제
+	int deleteByqualificationNo(int qualificationNo);
 	
 	/** Career 관련 메서드 **/
 	// 전체 조회

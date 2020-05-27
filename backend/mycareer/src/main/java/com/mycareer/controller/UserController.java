@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -90,6 +91,7 @@ public class UserController {
 		}
 	}
 	
+	/**Qualification 관련 메서드*/
 	@GetMapping(value = "users/qualifications/{userNo}")
 	public ResponseEntity<Object> findAllByQualificationUserNo(int userNo){
 		List<Qualification> qList=us.findAllByqUserUserNo(userNo);
@@ -100,6 +102,48 @@ public class UserController {
 		
 	}
 	
+	@PostMapping(value="users/qualifications")
+	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
+		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
+		System.out.println(q.getQUser());
+		try {			
+			Qualification result=us.saveQ(q);
+			if(Objects.isNull(result))
+				return new ResponseEntity<Object>("자격증 정보 등록 실패",HttpStatus.CONFLICT);
+			else
+				return new ResponseEntity<Object>(result,HttpStatus.OK);
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+		}
+	}
+	
+	@PutMapping(value="users/qualifications")
+	public ResponseEntity<Object> updaetQualifications(@RequestBody Qualification q){
+		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
+		System.out.println(q.getQUser());
+		try {			
+			Qualification result=us.saveQ(q);
+			if(Objects.isNull(result))
+				return new ResponseEntity<Object>("자격증 정보 수정 실패",HttpStatus.CONFLICT);
+			else
+				return new ResponseEntity<Object>(result,HttpStatus.OK);
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+		}
+	}
+	
+	@DeleteMapping(value="users/qualifications")
+	public ResponseEntity<Object> deleteQualifications(@RequestParam int qNo){
+		int result=us.deleteByqualificationNo(qNo);
+		if(result==1)
+			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
+		else
+			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
+	}
+	
+	/** URL 관련메서드*/
 	@GetMapping(value= "users/url/{userNo}")
 	public ResponseEntity<Object> findAllByUrlUserNo(int userNo){
 		List<Url> uList=us.findAllByuUserUserNo(userNo);
@@ -109,23 +153,6 @@ public class UserController {
 			return new ResponseEntity<Object>(uList,HttpStatus.OK);
 		
 	}
-	
-	@PostMapping(value="users/qualifications")
-	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
-		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
-		System.out.println(q.getQUser());
-		try {			
-			Qualification result=us.saveQ(q);
-			if(Objects.isNull(result))
-				return new ResponseEntity<Object>(null,HttpStatus.CONFLICT);
-			else
-				return new ResponseEntity<Object>(result,HttpStatus.OK);
-		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
-		}
-	}
-	
 	@PostMapping(value="users/urls")
 	public ResponseEntity<Object> saveUrl(@RequestBody Url u){
 		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlNo());
@@ -141,13 +168,21 @@ public class UserController {
 			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
 		}
 	}
-	@DeleteMapping(value="users/qualifications")
-	public ResponseEntity<Object> deleteQualifications(@RequestParam int qNo){
-		int result=us.deleteByqualificationNo(qNo);
-		if(result==1)
-			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
-		else
-			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
+	
+	@PutMapping(value="users/urls")
+	public ResponseEntity<Object> updateUrl(@RequestBody Url u){
+		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlNo());
+		System.out.println(u.getUUser());
+		try {
+			Url result=us.saveUrl(u);
+			if(Objects.isNull(result))
+				return new ResponseEntity<Object>("upate fail",HttpStatus.CONFLICT);
+			else
+				return new ResponseEntity<Object>(result,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+		}
 	}
 	
 	@DeleteMapping(value="users/urls")

@@ -38,7 +38,7 @@ public class Qualification {
 	@Column(name = "gain_day")
 	String gainDay;
 	
-	char grade;
+	String grade;
 	Integer score;	
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
