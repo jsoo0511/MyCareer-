@@ -58,8 +58,19 @@ public class UserController {
 			return new ResponseEntity<Object>(us.updateUser(user), HttpStatus.OK);
 		}
 	}
+	
+	@DeleteMapping(value = "users/{userNo}")
+	@ApiOperation(value = "userNo 회원 정보 삭제/탈퇴")
+	public ResponseEntity<Object> deleteUser(@PathVariable int userNo){
+		if(us.deleteUser(userNo) == 1) {
+			return new ResponseEntity<Object>("탈퇴 성공", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>("탈퇴 실패", HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@GetMapping(value = "users")
+	@ApiOperation(value = "모든 user 리스트 조회")
 	public ResponseEntity<Object> findAll() {
 		List<User> uList = us.findAll();
 		if (Objects.isNull(uList)) {
@@ -91,7 +102,7 @@ public class UserController {
 			return new ResponseEntity<Object>(registerUser, HttpStatus.CREATED);
 		}
 	}
-
+	
 	@GetMapping(value = "users/awards/{userNo}")
 	@ApiOperation(value = "user에 해당되는 award 리스트 조회")
 	public ResponseEntity<Object> findAllByAwardUserNo(@PathVariable int userNo) {

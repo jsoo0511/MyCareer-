@@ -26,7 +26,7 @@ public interface UserService {
 	// 회원 정보 수정
 	User updateUser(User user);
 	// 회원 정보 삭제(탈퇴)
-	
+	int deleteUser(int userNo);
 	
 	// 유저 번호에 해당하는 수상내역 가져오기
 	List<Award> findAllByUserNo(int userNo);
@@ -60,7 +60,7 @@ public interface UserService {
 	Object inserIntoCareer(Career career, int userNo);
 	
 	// 삭제
-	Object deleteAll(int careerNo);
+	Object deleteCareer(int careerNo);
 	
 	
 	/** Language 관련 메서드 **/
@@ -73,5 +73,5 @@ public interface UserService {
 	
 	// 삭제
 	// 단일 삭제 or 다중 삭제
-	Object delete(int languageNo);
+	Object deleteLanguage(int languageNo);
 }

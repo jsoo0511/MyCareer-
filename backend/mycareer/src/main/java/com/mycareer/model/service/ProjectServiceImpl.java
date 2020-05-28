@@ -67,6 +67,23 @@ public class ProjectServiceImpl implements ProjectService {
 			return null;
 		}
 	}
+	
+	@Override
+	public int deleteProject(int projectNo) {
+		try {
+			Project dProject = pr.findByProjectNo(projectNo);
+			if(Objects.isNull(dProject)) {
+				return 0;
+			}else {
+				pr.deleteById(projectNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 
 	/** Role 관련 메서드 */
 
@@ -86,17 +103,58 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 
-	// role 일괄 처리
+	// role 등록
 	@Override
-	public int saveRole(List<Role> rList, int projectNo) {
+	public Role saveRole(Role role, int projectNo) {
 		try {
-			List<Role> all = rr.findAllByrProjectProjectNo(projectNo);
-
+			Role sRole = rr.findByRoleNo(role.getRoleNo());
+			if(Objects.isNull(sRole)) {
+				role.setRProject(pr.findByProjectNo(projectNo));
+				rr.save(role);
+				return role;
+			}else {
+				return null;
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// role 수정
+	@Override
+	public int updateRole(Role role) {
+		try {
+			Role uRole = rr.findByRoleNo(role.getRoleNo());
+			if(Objects.isNull(uRole)) {
+				return 0;
+			}else {
+				rr.save(role);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return 0;
 	}
+	
+	// role 삭제
+	@Override
+	public int deleteRole(int roleNo) {
+	    try {
+			Role dRole = rr.findByRoleNo(roleNo);
+			if(Objects.isNull(dRole))
+				return 0;
+			else {
+				rr.deleteById(roleNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+    
 
 	/** Role Develop 관련 메서드 */
 

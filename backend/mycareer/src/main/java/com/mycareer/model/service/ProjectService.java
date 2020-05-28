@@ -17,13 +17,19 @@ public interface ProjectService {
 	// 하나의 프로젝트에 대해 저장하기. 수정
 	Project saveProejctOne(Project project);
 
+	// 프로젝트 삭제 기능
+	int deleteProject(int projectNo);
+
 	/** Role 관련 메서드 */
 
 	// role 역할을 다 가져오는 메서드
 	List<Role> findAllRoleByProjectNo(int projectNo);
 
 	// role 저장 = 등록, 수정
-	int saveRole(List<Role> rList, int projectNo);
+//	int saveRole(List<Role> rList, int projectNo);
+	Role saveRole(Role role, int projectNo);
+	int updateRole(Role role);
+	int deleteRole(int roleNo);
 
 	/** Role Develop 관련 메서드 */
 

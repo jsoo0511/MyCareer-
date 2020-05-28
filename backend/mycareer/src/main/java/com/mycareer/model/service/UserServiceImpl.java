@@ -41,6 +41,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private LanguageRepository lr;
 
+	/** User 관련 메서드 */
+
+	// 유저 한 명의 대한 상세 정보
 	@Override
 	public User findByUserNo(int userNo) {
 		try {
@@ -52,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	// 모든 유저 조회
 	@Override
 	public List<User> findAll() {
 		// TODO Auto-generated method stub
@@ -122,6 +126,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// 회원탈퇴
+	@Override
+	public int deleteUser(int userNo) {
+		try {
+			User dUser = ur.findByUserNo(userNo);
+			if (Objects.isNull(dUser)) {
+				return 0;
+			} else {
+				ur.deleteById(userNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	/** Award 관련 메서드 **/
 
@@ -141,6 +160,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	// 해당 user의 award 수정 및 삽입
+	
 
 	/** Qualification 관련 메서드 **/
 
@@ -260,12 +280,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Object deleteAll(int careerId) {
-		// TODO Auto-generated method stub
+	public Object deleteCareer(int careerNo) {
+		try {
+			Career dCareer = cr.findByCareerNo(careerNo);
+			if(Objects.isNull(dCareer)) {
+				return 0;
+			}else {
+				cr.deleteById(careerNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	/** Language 관련 **/
+	
+	// 해당 유저의 모든 사용 프로그래밍 언어를 불러온다.
 	@Override
 	public List<Language> findAllByLanguageUserNo(int userNo) {
 		try {
@@ -279,7 +311,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-
+ 
+	
+	// 해당 유저의 사용 프로그래밍 언어를 삽입한다.
 	@Override
 	public Object insertIntoLanguage(Language lang, int userNo) {
 		try {
@@ -297,11 +331,22 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-
+	
+	// 해당 언어 관련 정보를 삭제
 	@Override
-	public Object delete(int languageId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object deleteLanguage(int languageNo) {
+		try {
+			Language dLanguage = lr.findByLanguageNo(languageNo);
+			if(Objects.isNull(dLanguage)) {
+				return 0;
+			}else {
+				lr.deleteById(languageNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
