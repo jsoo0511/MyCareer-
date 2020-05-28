@@ -1,5 +1,4 @@
-
-package com.mycareer.model.dto.user;
+package com.mycareer.model.dto.project;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.mycareer.model.dto.User;
+import com.mycareer.model.dto.Project;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,30 +18,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "qualification")
+@Table(name = "role")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Qualification {
+public class Role {
 
-	
 	@Id
-	@Column(name = "qualification_no")
+	@Column(name = "role_no")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	int qualificationNo;
-	
-	@Column(name = "q_title")
-	String qualificationTitle;
-	
-	@Column(name = "gain_day")
-	String gainDay;
-	
-	String grade;
-	Integer score;	
-	
-	@ManyToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="user_no", referencedColumnName = "user_no")
-	User qUser;
-}
+	int roleNo;
 
+	@Column(name = "role_name")
+	String roleName;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "project_no", referencedColumnName = "project_no")
+	Project rProject;
+}

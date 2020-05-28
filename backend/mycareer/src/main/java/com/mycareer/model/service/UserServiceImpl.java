@@ -33,12 +33,17 @@ public class UserServiceImpl implements UserService {
 	private QualificationRepository qr;
 
 	@Autowired
-	UrlRepository Urlr;
+	private UrlRepository Urlr;
+
+	@Autowired
 	private CareerRepository cr;
 
 	@Autowired
 	private LanguageRepository lr;
 
+	/** User 관련 메서드 */
+
+	// 유저 한 명의 대한 상세 정보
 	@Override
 	public User findByUserNo(int userNo) {
 		try {
@@ -48,12 +53,12 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 			return null;
 		}
-
 	}
 
+	// 모든 유저 조회
 	@Override
-	// 모든 유저 정보 찾기
 	public List<User> findAll() {
+		// TODO Auto-generated method stub
 		try {
 			if (Objects.isNull(ur.findAll()))
 				return null;
@@ -94,7 +99,7 @@ public class UserServiceImpl implements UserService {
 			if (Objects.isNull(joinUser)) {
 				ur.save(user);
 				return user;
-			}else {
+			} else {
 				throw new Exception("이미 존재하는 이메일입니다.");
 			}
 		} catch (Exception e) {
@@ -103,6 +108,43 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	// 회원정보 수정
+	@Override
+	public User updateUser(User user) {
+		try {
+			User findUser = ur.findByUserNo(user.getUserNo());
+			if (Objects.isNull(findUser)) {
+				throw new Exception("회원 정보를 불러올 수 없습니다.");
+			} else {
+				ur.save(user);
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// 회원탈퇴
+	@Override
+	public int deleteUser(int userNo) {
+		try {
+			User dUser = ur.findByUserNo(userNo);
+			if (Objects.isNull(dUser)) {
+				return 0;
+			} else {
+				ur.deleteById(userNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/** Award 관련 메서드 **/
+
+	// 해당 user의 award 리스트 가져오기
 	@Override
 	public List<Award> findAllByUserNo(int userNo) {
 		try {
@@ -116,6 +158,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+
+	// 해당 user의 award 수정 및 삽입
+	
 
 	/** Qualification 관련 메서드 **/
 
@@ -144,6 +189,29 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	public Qualification updateQ(Qualification q) {
+		try {
+			Qualification result = qr.save(q);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public int deleteByqualificationNo(int qualificationId) {
+		try {
+			int result = qr.deleteByqualificationNo(qualificationId);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	/** Url 관련 메서드 */
+
 	@Override
 	public List<Url> findAllByuUserUserNo(int userNo) {
 		try {
@@ -158,17 +226,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int deleteByqualificationNo(int qualificationId) {
+	public Url saveUrl(Url u) {
 		try {
-			qr.deleteByqualificationNo(qualificationId);
-			return 1;
+			Url result = Urlr.save(u);
+			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return 0;
 	}
-
-	/** Url 관련 메서드 **/
 
 	@Override
 	public int deleteByurlNo(int urlId) {
@@ -179,17 +245,6 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return 0;
-	}
-
-	@Override
-	public Url saveUrl(Url u) {
-		try {
-			Url result = Urlr.save(u);
-			return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	/** Career 관련 **/
@@ -226,12 +281,24 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Object deleteAll(int careerId) {
-		// TODO Auto-generated method stub
+	public Object deleteCareer(int careerNo) {
+		try {
+			Career dCareer = cr.findByCareerNo(careerNo);
+			if(Objects.isNull(dCareer)) {
+				return 0;
+			}else {
+				cr.deleteById(careerNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	/** Language 관련 **/
+	
+	// 해당 유저의 모든 사용 프로그래밍 언어를 불러온다.
 	@Override
 	public List<Language> findAllByLanguageUserNo(int userNo) {
 		try {
@@ -245,7 +312,9 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-
+ 
+	
+	// 해당 유저의 사용 프로그래밍 언어를 삽입한다.
 	@Override
 	public Object insertIntoLanguage(Language lang, int userNo) {
 		try {
@@ -263,11 +332,22 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-
+	
+	// 해당 언어 관련 정보를 삭제
 	@Override
-	public Object delete(int languageId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object deleteLanguage(int languageNo) {
+		try {
+			Language dLanguage = lr.findByLanguageNo(languageNo);
+			if(Objects.isNull(dLanguage)) {
+				return 0;
+			}else {
+				lr.deleteById(languageNo);
+				return 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

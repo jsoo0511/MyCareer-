@@ -19,33 +19,32 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @ToString
 @Setter
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_no")
+	@Column(name = "user_no")
 	int userNo;
-	
-	
+
 	String email;
 	String password;
 	String name;
-	
+
 	String birth;
 	String gender;
 	String job;
 	String phone;
 	String provider;
-	
+
 //	String created;
 //	String deleted;
-	
+
 //	@OneToMany(mappedBy = "aUser",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 //	Award uAward;
 }

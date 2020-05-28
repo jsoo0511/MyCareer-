@@ -16,17 +16,19 @@ import com.mycareer.model.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "url")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Url {
 	
 	@Id
 	@Column(name = "url_no")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int urlNo;
 	
 	@Column(name="url")
