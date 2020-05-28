@@ -65,6 +65,9 @@ public class ProjectServiceImpl implements ProjectService{
 		}
 		return 0;
 	}
+	
+	/**Tech관련 메서드*/
+	
 	@Override
 	public Tech findByTechNo(int techNo) {
 		try {
