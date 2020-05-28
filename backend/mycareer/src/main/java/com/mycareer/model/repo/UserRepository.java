@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 import com.mycareer.model.dto.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
-	//List<User> findUsers();
+public interface UserRepository extends JpaRepository<User, Integer> {
+	// List<User> findUsers();
 	User findByUserNo(int userNo);
+
 	User findByEmail(String email);
 //	List<User> findAll();
 //	List<User> findUsers();

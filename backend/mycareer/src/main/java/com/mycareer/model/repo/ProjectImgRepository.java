@@ -17,5 +17,7 @@ public interface ProjectImgRepository extends JpaRepository<ProjectImgRepository
 	List<ProjectImg> findAllByiProjectProjectNo(int projectNo);
 	
 	// 이미지 하나만 가져오기 - 프로젝트 넘버
-	ProjectImg findByImgNo(int imgNo);
+//	ProjectImg findByImgNo(int imgNo);
+	
+	
 }

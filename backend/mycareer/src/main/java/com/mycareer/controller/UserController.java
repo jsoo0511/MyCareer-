@@ -35,176 +35,176 @@ public class UserController {
 
 	@Autowired
 	private UserService us;
-	
+
 //	@RequestMapping(method = RequestMethod.GET, value = "user/{userNo}")
 	@GetMapping(value = "users/{userNo}")
 	@ApiOperation(value = "userNo 회원 정보 조회")
-	public ResponseEntity<Object> findOne(@PathVariable int userNo){
+	public ResponseEntity<Object> findOne(@PathVariable int userNo) {
 		User tUser = us.findByUserNo(userNo);
-		if(Objects.isNull(tUser)) {
+		if (Objects.isNull(tUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(tUser, HttpStatus.OK);
 		}
 	}
-	
+
 	@PutMapping(value = "users/{userNo}")
 	@ApiOperation(value = "userNo 회원 정보 수정")
-	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user){
+	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user) {
 		User tUser = us.findByUserNo(userNo);
-		if(Objects.isNull(tUser)) {
+		if (Objects.isNull(tUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(us.updateUser(user), HttpStatus.OK);
 		}
 	}
-	
-	
+
 	@GetMapping(value = "users")
-	public ResponseEntity<Object> findAll(){
+	public ResponseEntity<Object> findAll() {
 		List<User> uList = us.findAll();
-		if(Objects.isNull(uList)) {
+		if (Objects.isNull(uList)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(uList, HttpStatus.OK);
 		}
 	}
-	
+
 	@GetMapping(value = "users/login")
 	@ApiOperation(value = "유저 로그인")
-	public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password){
+	public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
 		User loginUser = us.login(email, password);
-		if(Objects.isNull(loginUser)) {
+		if (Objects.isNull(loginUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(loginUser, HttpStatus.OK);
-			
+
 		}
 	}
-	
+
 	@PostMapping(value = "users/register")
 	@ApiOperation(value = "유저 회원가입")
-	public ResponseEntity<Object> register(@RequestBody User user){
+	public ResponseEntity<Object> register(@RequestBody User user) {
 		User registerUser = us.signUp(user);
-		if(Objects.isNull(registerUser)) {
+		if (Objects.isNull(registerUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(registerUser, HttpStatus.CREATED);
-		}	
+		}
 	}
-	
+
 	@GetMapping(value = "users/awards/{userNo}")
 	@ApiOperation(value = "user에 해당되는 award 리스트 조회")
-	public ResponseEntity<Object> findAllByAwardUserNo(@PathVariable int userNo){
+	public ResponseEntity<Object> findAllByAwardUserNo(@PathVariable int userNo) {
 		List<Award> aList = us.findAllByUserNo(userNo);
-		if(Objects.isNull(aList)) {
+		if (Objects.isNull(aList)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
-		}else {
+		} else {
 			return new ResponseEntity<Object>(aList, HttpStatus.OK);
 		}
 	}
-	
-	/**Qualification 관련 메서드*/
+
+	/** Qualification 관련 메서드 */
 	@GetMapping(value = "users/qualifications/{userNo}")
-	public ResponseEntity<Object> findAllByQualificationUserNo(int userNo){
-		List<Qualification> qList=us.findAllByqUserUserNo(userNo);
-		if(Objects.isNull(qList)) 
-			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
+	public ResponseEntity<Object> findAllByQualificationUserNo(int userNo) {
+		List<Qualification> qList = us.findAllByqUserUserNo(userNo);
+		if (Objects.isNull(qList))
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<Object>(qList,HttpStatus.OK);
-		
+			return new ResponseEntity<Object>(qList, HttpStatus.OK);
+
 	}
-	
-	@PostMapping(value="users/qualifications")
-	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q){
-		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
+
+	@PostMapping(value = "users/qualifications")
+	public ResponseEntity<Object> saveQualifications(@RequestBody Qualification q) {
+		System.out.println(q.getGainDay() + " " + q.getGrade() + " " + q.getQualificationNo());
 		System.out.println(q.getQUser());
-		try {			
-			Qualification result=us.saveQ(q);
-			if(Objects.isNull(result))
-				return new ResponseEntity<Object>("자격증 정보 등록 실패",HttpStatus.CONFLICT);
+		try {
+			Qualification result = us.saveQ(q);
+			if (Objects.isNull(result))
+				return new ResponseEntity<Object>("자격증 정보 등록 실패", HttpStatus.CONFLICT);
 			else
-				return new ResponseEntity<Object>(result,HttpStatus.OK);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
-			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Fail", HttpStatus.CONFLICT);
 		}
 	}
-	
-	@PutMapping(value="users/qualifications")
-	public ResponseEntity<Object> updaetQualifications(@RequestBody Qualification q){
-		System.out.println(q.getGainDay()+" "+q.getGrade()+" "+q.getQualificationNo());
+
+	@PutMapping(value = "users/qualifications")
+	public ResponseEntity<Object> updaetQualifications(@RequestBody Qualification q) {
+		System.out.println(q.getGainDay() + " " + q.getGrade() + " " + q.getQualificationNo());
 		System.out.println(q.getQUser());
-		try {			
-			Qualification result=us.saveQ(q);
-			if(Objects.isNull(result))
-				return new ResponseEntity<Object>("자격증 정보 수정 실패",HttpStatus.CONFLICT);
+		try {
+			Qualification result = us.saveQ(q);
+			if (Objects.isNull(result))
+				return new ResponseEntity<Object>("자격증 정보 수정 실패", HttpStatus.CONFLICT);
 			else
-				return new ResponseEntity<Object>(result,HttpStatus.OK);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {
 			e.printStackTrace();
-			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Fail", HttpStatus.CONFLICT);
 		}
 	}
-	
-	@DeleteMapping(value="users/qualifications")
-	public ResponseEntity<Object> deleteQualifications(@RequestParam int qNo){
-		int result=us.deleteByqualificationNo(qNo);
-		if(result==1)
-			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
+
+	@DeleteMapping(value = "users/qualifications")
+	public ResponseEntity<Object> deleteQualifications(@RequestParam int qNo) {
+		int result = us.deleteByqualificationNo(qNo);
+		if (result == 1)
+			return new ResponseEntity<Object>("Delete success", HttpStatus.OK);
 		else
-			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Delete Fail", HttpStatus.CONFLICT);
 	}
-	
-	/** URL 관련메서드*/
-	@GetMapping(value= "users/url/{userNo}")
-	public ResponseEntity<Object> findAllByUrlUserNo(int userNo){
-		List<Url> uList=us.findAllByuUserUserNo(userNo);
-		if(Objects.isNull(uList)) 
-			return new ResponseEntity<Object>(null,HttpStatus.NOT_FOUND);
+
+	/** URL 관련메서드 */
+	@GetMapping(value = "users/url/{userNo}")
+	public ResponseEntity<Object> findAllByUrlUserNo(int userNo) {
+		List<Url> uList = us.findAllByuUserUserNo(userNo);
+		if (Objects.isNull(uList))
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
 		else
-			return new ResponseEntity<Object>(uList,HttpStatus.OK);
-		
+			return new ResponseEntity<Object>(uList, HttpStatus.OK);
+
 	}
-	@PostMapping(value="users/urls")
-	public ResponseEntity<Object> saveUrl(@RequestBody Url u){
-		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlNo());
+
+	@PostMapping(value = "users/urls")
+	public ResponseEntity<Object> saveUrl(@RequestBody Url u) {
+		System.out.println(u.getUrl() + " " + u.getUrlInfo() + " " + u.getUrlNo());
 		System.out.println(u.getUUser());
 		try {
-			Url result=us.saveUrl(u);
-			if(Objects.isNull(result))
-				return new ResponseEntity<Object>(null,HttpStatus.CONFLICT);
+			Url result = us.saveUrl(u);
+			if (Objects.isNull(result))
+				return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 			else
-				return new ResponseEntity<Object>(result,HttpStatus.OK);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Fail", HttpStatus.CONFLICT);
 		}
 	}
-	
-	@PutMapping(value="users/urls")
-	public ResponseEntity<Object> updateUrl(@RequestBody Url u){
-		System.out.println(u.getUrl()+" "+u.getUrlInfo()+" "+u.getUrlNo());
+
+	@PutMapping(value = "users/urls")
+	public ResponseEntity<Object> updateUrl(@RequestBody Url u) {
+		System.out.println(u.getUrl() + " " + u.getUrlInfo() + " " + u.getUrlNo());
 		System.out.println(u.getUUser());
 		try {
-			Url result=us.saveUrl(u);
-			if(Objects.isNull(result))
-				return new ResponseEntity<Object>("upate fail",HttpStatus.CONFLICT);
+			Url result = us.saveUrl(u);
+			if (Objects.isNull(result))
+				return new ResponseEntity<Object>("upate fail", HttpStatus.CONFLICT);
 			else
-				return new ResponseEntity<Object>(result,HttpStatus.OK);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<Object>("Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Fail", HttpStatus.CONFLICT);
 		}
 	}
-	
-	@DeleteMapping(value="users/urls")
-	public ResponseEntity<Object> deleteUrls(@RequestParam int uNo){
-		int result=us.deleteByurlNo(uNo);
+
+	@DeleteMapping(value = "users/urls")
+	public ResponseEntity<Object> deleteUrls(@RequestParam int uNo) {
+		int result = us.deleteByurlNo(uNo);
 		System.out.println(result);
-		if(result==1)
-			return new ResponseEntity<Object>("Delete success",HttpStatus.OK);
+		if (result == 1)
+			return new ResponseEntity<Object>("Delete success", HttpStatus.OK);
 		else
-			return new ResponseEntity<Object>("Delete Fail",HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Delete Fail", HttpStatus.CONFLICT);
 	}
 }

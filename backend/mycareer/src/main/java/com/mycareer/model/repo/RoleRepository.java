@@ -8,11 +8,13 @@ import org.springframework.stereotype.Repository;
 import com.mycareer.model.dto.project.Role;
 
 @Repository
-public interface RoleRepository extends JpaRepository<RoleRepository, Integer>{
+public interface RoleRepository extends JpaRepository<RoleRepository, Integer> {
 
 	// 프로젝트에 해당하는 역할 리스트 가져오기
 	List<Role> findAllByrProjectProjectNo(int projectNo);
-	
+
 	// 프로젝트에 해당하는 역할 한 개일 경우
-	Role findByrProjectProjectNo(int projectNo);
+//	Role findByrProjectProjectNo(int projectNo);
+	// 개별 삭제
+
 }

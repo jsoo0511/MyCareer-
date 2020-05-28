@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UrlRepository Urlr;
-	
+
 	@Autowired
 	private CareerRepository cr;
 
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 			if (Objects.isNull(joinUser)) {
 				ur.save(user);
 				return user;
-			}else {
+			} else {
 				throw new Exception("이미 존재하는 이메일입니다.");
 			}
 		} catch (Exception e) {
@@ -103,29 +103,28 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-	
+
 	// 회원정보 수정
 	@Override
 	public User updateUser(User user) {
 		try {
 			User findUser = ur.findByUserNo(user.getUserNo());
-			if(Objects.isNull(findUser)) {
+			if (Objects.isNull(findUser)) {
 				throw new Exception("회원 정보를 불러올 수 없습니다.");
-			}else {
+			} else {
 				ur.save(user);
 				return user;
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	// 회원탈퇴
-	
 
 	/** Award 관련 메서드 **/
-	
+
 	// 해당 user의 award 리스트 가져오기
 	@Override
 	public List<Award> findAllByUserNo(int userNo) {
@@ -140,9 +139,8 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-	
+
 	// 해당 user의 award 수정 및 삽입
-	
 
 	/** Qualification 관련 메서드 **/
 
@@ -169,7 +167,7 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-	
+
 	public Qualification updateQ(Qualification q) {
 		try {
 			Qualification result = qr.save(q);
@@ -179,19 +177,19 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
-	
-	
+
 	@Override
 	public int deleteByqualificationNo(int qualificationId) {
 		try {
-			int result=qr.deleteByqualificationNo(qualificationId);
+			int result = qr.deleteByqualificationNo(qualificationId);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	/**Url 관련 메서드*/
+
+	/** Url 관련 메서드 */
 
 	@Override
 	public List<Url> findAllByuUserUserNo(int userNo) {
@@ -216,6 +214,7 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 	}
+
 	@Override
 	public int deleteByurlNo(int urlId) {
 		try {
@@ -226,7 +225,6 @@ public class UserServiceImpl implements UserService {
 		}
 		return 0;
 	}
-
 
 	/** Career 관련 **/
 	@Override
@@ -305,7 +303,5 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
