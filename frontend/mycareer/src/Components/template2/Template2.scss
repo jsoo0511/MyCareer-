@@ -1,0 +1,99 @@
+#container {
+  background-color: #46344e;
+  #template2 {
+    #user-profile {
+      position: relative;
+      background-color: #9d8d8f;
+      color: white;
+      width: 1000px;
+      height: 300px;
+      margin: auto;
+      margin-top: 50px;
+      border-radius: 5px;
+
+      #user-pic {
+        position: relative;
+        background-color: rgb(250, 250, 250);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+
+        left: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+
+      #imgFile {
+        position: absolute;
+        font-size: 12px;
+        bottom: 10px;
+        left: 70px;
+      }
+
+      .profile-table {
+        position: absolute;
+        top: 40px;
+        font-size: 16px;
+        color: #faed26;
+
+        input {
+          border: none;
+          background-color: rgba(0, 0, 0, 0);
+          width: 120px;
+          color: white;
+
+          &:focus {
+            outline: none;
+          }
+        }
+
+        tr {
+          border-bottom: 1px solid rgb(45, 45, 45);
+
+          th {
+            letter-spacing: 2px;
+          }
+
+          td {
+            padding: 5px 5px;
+          }
+
+          .table-title {
+            font-size: 20px;
+            letter-spacing: 3px;
+            padding: 5px 0;
+          }
+        }
+      }
+
+      #table1 {
+        left: 350px;
+      }
+
+      #table2 {
+        left: 650px;
+
+        th {
+          &:first-child {
+            width: 300px;
+          }
+        }
+      }
+    }
+
+    #portfolio {
+      background-color: rgb(250, 250, 250);
+      width: 1000px;
+      height: 800px;
+      margin: auto;
+      margin-top: 20px;
+      border-radius: 5px;
+    }
+  }
+}
