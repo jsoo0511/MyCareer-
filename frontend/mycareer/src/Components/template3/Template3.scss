@@ -74,6 +74,21 @@
         .date{
             margin: 10px 0;
         }
+        .tools{
+            font-size: 17px;
+        }
+        .tool{
+            display: inline-block;
+            // width: 50px;
+            height: 25px;
+            background-color: rgb(114, 114, 114);
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px 3px;
+            padding: 1px 8px;
+            vertical-align: middle;
+        }
         .summary{
             border: 0;
             width: 100%;
