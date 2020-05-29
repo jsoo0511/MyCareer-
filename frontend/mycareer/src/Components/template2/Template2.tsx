@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Header from "../Common/Header";
+import { Input, DatePicker } from "antd";
 import "./Template2.scss";
+
+const { RangePicker } = DatePicker;
 
 class Template2 extends Component {
   state = {
@@ -109,7 +112,36 @@ class Template2 extends Component {
               </tbody>
             </table>
           </div>
-          <div id="portfolio"></div>
+          <div id="portfolio">
+            <div id="portfolio-title">
+              <input type="text" placeholder="Project Name ..." />
+            </div>
+
+            <div id="portfolio-summary">
+              <div className="tab-title">프로젝트 개요</div>
+              <textarea id="summary-text"> </textarea>
+            </div>
+
+            <div id="portfolio-dates">
+              <div className="tab-title">프로젝트 기간</div>
+              <RangePicker id="dates"></RangePicker>
+            </div>
+
+            <div id="portfolio-functions">
+              <div className="tab-title">주요 기능</div>
+              <textarea className="textarea"> </textarea>
+            </div>
+
+            <div id="portfolio-role">
+              <div className="tab-title">맡은 역할</div>
+              <textarea className="textarea"> </textarea>
+            </div>
+
+            <div id="portfolio-results">
+              <div className="tab-title">결과물</div>
+              <textarea className="textarea"> </textarea>
+            </div>
+          </div>
         </div>
       </div>
     );
