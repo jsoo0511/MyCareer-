@@ -82,5 +82,5 @@ npm start
 ### Templates
 #### Template 2
 
-![템플릿2](./caputer/Template2.PNG)
+![템플릿2](./capture/Template2.PNG)
 - 아직 작업중입니다.
