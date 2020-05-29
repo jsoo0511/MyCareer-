@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.mycareer.model.dto.project.ProjectImg;
 
 @Repository
-public interface ProjectImgRepository extends JpaRepository<ProjectImgRepository, Integer>{
+public interface ProjectImgRepository extends JpaRepository<ProjectImg, Integer>{
 
 	//이미지 전체 조회
 	// findAll
