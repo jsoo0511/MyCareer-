@@ -68,11 +68,13 @@
 
    + DB 수정 사항
 
-     + TABLE ID 컬럼을 TABLE에 맞게 TABLENAME_ID로 수정할 예정
+     + ~~TABLE ID 컬럼을 TABLE에 맞게 TABLENAME_ID로 수정할 예정~~ `완료`
      + Template 관련 사항 미구현 -> 구현 예정
-     + Created_at 등의 Date 관련 컬럼 추가 예정
+     + ~~Created_at 등의 Date 관련 컬럼 추가 예정~~
 
    + Front와 rest api 연결을 본격적으로 진행하게 되면, 상황에 맞추어 수정할 예정
+
+   + 추가 구현 사항은 2. 참조
 
      
 
