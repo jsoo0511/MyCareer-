@@ -2,11 +2,12 @@ import React from "react";
 import "./ProjectList.scss";
 import { Row, Col, Button } from "antd";
 import Sortable from "sortablejs";
+import { Link } from "react-router-dom";
 
 class ProjectList extends React.Component {
   componentDidMount() {
-      var el = document.getElementById('items');
-      var sortable = Sortable.create(el);
+    var el = document.getElementById("items");
+    var sortable = Sortable.create(el);
   }
 
   render() {
@@ -29,7 +30,9 @@ class ProjectList extends React.Component {
                 </Col>
               </Row>
               <div className="clearfix">
+                <Link to="/tp-list">
                   <Button id="addButton">새 프로젝트 추가</Button>
+                </Link>
                 <ul id="items">
                   <li>
                     <img src="https://www.simplesite.com/Images/FrontPage2017/Themes/4.png" />
