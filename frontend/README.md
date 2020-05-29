@@ -62,6 +62,9 @@ npm start
 - 프로젝트를 작성하는 페이지입니다.
 - 아직 구현 중이며 간단한 틀만 완성한 상태입니다.
 
+![프로젝트작성3](./capture/t3.JPG)
+- 미완성이며 이미지 업로드와 디자인이 수정될 예정입니다.
+
 ### Personal Information
 
 ![인적사항](./capture/personal.JPG)
