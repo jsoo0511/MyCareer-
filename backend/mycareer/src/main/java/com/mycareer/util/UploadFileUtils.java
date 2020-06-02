@@ -27,6 +27,16 @@ import com.drew.metadata.exif.ExifIFD0Directory;
 import com.drew.metadata.jpeg.JpegDirectory;
 
 //import net.coobird.thumbnailator.Thumbnails;
+//UUID 가 사용될 수 있는곳으로 다음과 같은 곳이 있겠습니다.
+//
+//1. 업로드된 파일명의 중복을 방지하기 위해 파일명을 변경할 때 사용.
+//
+//2. 첨부파일 파일다운로드시 다른 파일을 예측하여 다운로드하는것을 방지하는데 사용.
+//
+//3. 일련번호 대신 유추하기 힘든 식별자를 사용하여 다른 컨텐츠의 임의 접근을 방지하는데 사용.
+//
+//
+
 
 public class UploadFileUtils {
 	
