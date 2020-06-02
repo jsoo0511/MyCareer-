@@ -81,3 +81,5 @@
 2.  Backend 진행 상황
 
    + [Backend-ReadMe](backend/README.md)
+   + Service 부분 기능 수정 중
+   + 예외 처리 부분 수정 중
