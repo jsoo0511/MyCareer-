@@ -13,7 +13,7 @@ import com.mycareer.model.dto.user.Career;
 import com.mycareer.model.dto.user.Language;
 
 public interface UserService {
-	
+
 	/** User 관련 메서드 **/
 	
 	// USER가 존재하는지 확인

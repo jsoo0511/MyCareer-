@@ -5,6 +5,8 @@ import { InputNumber } from "antd";
 import "antd/dist/antd.css";
 import "./Login.scss";
 
+import axios from "axios";
+
 // sign up
 const validateMessages = {
   required: "${label} is required!",
@@ -64,8 +66,14 @@ class Login extends React.Component {
     });
   };
 
-  signInFinish = (values) => {
+  signInFinish = async (values) => {
     console.log("Success:", values);
+    // 로그인 API 적용
+    await axios
+      .get(
+        `http://13.124.227.192:8080/users/login?email=${values.email}&password=${values.password}`
+      )
+      .then((res) => console.log(res));
   };
 
   signInFinishFailed = (errorInfo) => {
@@ -80,7 +88,7 @@ class Login extends React.Component {
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>
-        ✨ 로그인 & 회원가입 ✨
+        로그인
         </Button>
         <Modal
           // title="Sign In ✨ Sign Up"
@@ -101,14 +109,9 @@ class Login extends React.Component {
                 onFinishFailed={this.signInFinishFailed}
               >
                 <Form.Item
-                  label="아이디"
-                  name="username"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your username!",
-                    },
-                  ]}
+                  label="이메일"
+                  name="email"
+                  rules={[{ required: true, type: "email" }]}
                 >
                   <Input />
                 </Form.Item>
@@ -126,21 +129,16 @@ class Login extends React.Component {
                   <Input.Password />
                 </Form.Item>
 
-                <Form.Item
-                  {...tailLayout}
-                  name="remember"
-                  valuePropName="checked"
-                >
-                  <Checkbox>로그인 유지하기</Checkbox>
-                </Form.Item>
-
-                <img class="signInGithub" width="200px" src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png" />
-                
-                {/* <Form.Item {...tailLayout}> */}
+                <Form.Item {...tailLayout}>
                   <Button type="primary" htmlType="submit">
                     로그인 하기
                   </Button>
-                {/* </Form.Item> */}
+                  <img
+                    class="signInGithub"
+                    width="200px"
+                    src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png"
+                  />
+                </Form.Item>
               </Form>
             </TabPane>
             <TabPane tab="회원가입" key="2">
@@ -177,7 +175,7 @@ class Login extends React.Component {
                 <Form.Item name={["user", "introduction"]} label="내 소개">
                   <Input.TextArea />
                 </Form.Item>
-                
+
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
                     가입하기

@@ -1,0 +1,101 @@
+.personalInfo{
+    font-family: "Nanum Gothic Coding", monospace;
+    width: 70%;
+    margin: 0px auto;
+    .header{
+        width: 100vw;
+        height: 60px;
+        box-shadow: 0 1px 3px 0.5px rgb(204, 204, 204);
+        position: fixed;
+        top: 0px;
+        left: 0;
+        .back {
+            position: fixed;
+            button {
+                border: 0;
+                background-color: white;
+                width: 60px;
+                cursor: pointer;
+                margin: 10px;
+                img {
+                    width: 40px;
+                }
+            }
+        }
+        .title{
+            position: fixed;
+            top: 13px;
+            margin-left: 80px;
+        }
+        .save{
+            position: fixed;
+            top: 0;
+            right: 15px;
+            button{
+                border: 0;
+                border-radius: 5px;
+                background-color: rgb(173, 201, 180);
+                width: 130px;
+                height: 40px;
+                margin: 10px;
+                color: white;
+                cursor: pointer;
+                img {
+                    width: 50px;
+                }
+            }
+        }
+    }
+    .info{
+        margin-top: 110px;
+        .info-title{
+            // margin-left: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+        .info-left{
+            display: inline-block;
+            width: 56%;
+            text-align: right;
+            margin-right: 3%;
+            .text{
+                width: 80%;
+                max-width: 400px;
+                height: 30px;
+                // border: 1px solid rgb(199, 199, 199);
+                background-color: rgb(236, 236, 236);
+                border: 0;
+                border-radius: 3px;
+                padding-left: 10px;
+                margin: 15px auto;
+            }
+            input[type="text"]:focus{
+                outline-color: green;
+            }
+            .check{
+                width: 20px;
+            }
+        }
+        .info-right{
+            display: inline-block;
+            width: 35%;
+            margin-left: 2%;
+            padding-left: 3%;
+            .pro-img{
+                border-radius: 90px;
+                width: 180px;
+                height: 180px;
+                overflow: hidden;
+                margin: 10px;
+            img{
+                    width: 100%;
+                    height: 100%;
+
+                }
+            }
+            input[type="file"]{
+                width: 150px;
+            }
+        }
+    }
+}

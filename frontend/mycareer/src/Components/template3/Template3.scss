@@ -1,0 +1,134 @@
+.template3{
+    font-family: "Nanum Gothic Coding", monospace;
+    width: 80%;
+    margin: 0px auto;
+    .header{
+        width: 100vw;
+        height: 60px;
+        box-shadow: 0 1px 3px 0.5px rgb(204, 204, 204);
+        position: fixed;
+        top: 0px;
+        left: 0;
+        .back {
+            position: fixed;
+            button {
+                border: 0;
+                background-color: white;
+                width: 60px;
+                cursor: pointer;
+                margin: 10px;
+                img {
+                    width: 40px;
+                }
+            }
+        }
+        .title{
+            position: fixed;
+            top: 13px;
+            margin-left: 80px;
+        }
+        .save{
+            position: fixed;
+            top: 0;
+            right: 15px;
+            button{
+                border: 0;
+                border-radius: 5px;
+                background-color: rgb(173, 201, 180);
+                width: 130px;
+                height: 40px;
+                margin: 10px;
+                color: white;
+                cursor: pointer;
+                img {
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+    .template-left{
+        margin-top: 70px;
+        width: 55%;
+        display: inline-block;
+        vertical-align: top;
+        
+        input:focus{
+            outline: none;
+        }
+        div:focus{
+            outline: none;
+        }
+        
+        .name{
+            width: 100%;
+            height: 50px;
+            border: 0;
+            font-size: 45px;
+            margin: 10px 0;
+            padding: 2px 0;
+        }
+        .prjDate{
+            font-size: 17px;
+        }
+        .date{
+            margin: 10px 0;
+        }
+        .tools{
+            font-size: 17px;
+        }
+        .tool{
+            display: inline-block;
+            // width: 50px;
+            height: 25px;
+            background-color: rgb(114, 114, 114);
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px 3px;
+            padding: 1px 8px;
+            vertical-align: middle;
+        }
+        .summary{
+            border: 0;
+            width: 100%;
+            font-size: 20px;
+            margin: 10px 0;
+            padding: 2px 0;
+        }
+        .function{
+            border: 0;
+            width: 100%;
+            font-size: 17px;
+            margin: 10px 0;
+            padding: 2px 0;
+        }
+        .myWork{
+            width: 100%;
+            font-size: 17px;
+            margin: 10px 0;
+            padding: 2px 0;
+
+        }
+        .gitURL{
+            border: 0;
+            width: 100%;
+            height: 20px;
+            font-size: 18px;
+        }
+    }
+
+    .template-right{
+        width: 45%;
+        margin-top: 80px;
+        display: inline-block;
+        // border: solid 1px black;
+
+        .img{
+            width: 100%;
+            height: 300px;
+            background-color: gray;
+            margin: 15px 0;
+        }
+    }
+}
