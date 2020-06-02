@@ -22,7 +22,8 @@ import lombok.Setter;
 @Table(name = "language")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Language {
 	
 	@Id
