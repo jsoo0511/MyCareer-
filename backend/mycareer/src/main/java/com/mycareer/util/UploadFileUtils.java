@@ -153,20 +153,6 @@ public class UploadFileUtils {
 			System.out.println(e.getMessage());
 		}
 		
-		/*
-		 * String thumbFileName = "s_" + newFileName; // 썸네일 파일명 = "s_파일명" File image =
-		 * new File(imgPath + File.separator + newFileName);
-		 * 
-		 * // 원본 파일과 같은 경로의 하위에 "s" 폴더를 생성하여 썸네일을 저장 File thumbnail = new File(imgPath +
-		 * File.separator + "store" + File.separator + thumbFileName);
-		 * 
-		 * if (image.exists()) {
-		 * 
-		 * // 썸네일이 저장될 폴더를 생성 thumbnail.getParentFile().mkdirs();
-		 * 
-		 * // 썸네일 생성 Thumbnails.of(image).size(THUMB_WIDTH,
-		 * THUMB_HEIGHT).toFile(thumbnail); }
-		 */
 		return newFileName;
 	}
 
