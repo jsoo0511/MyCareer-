@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Template1 from "./Components/Template1/Template1";
-import Template2 from "./Components/template2/Template2";
+import Template2 from "./Components/Template2/Template2";
 import Login from "./Components/User/Login";
 import ProjectList from "./Components/Project/ProjectList";
 import Main from "./Components/Main/Main";

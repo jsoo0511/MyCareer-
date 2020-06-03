@@ -1,11 +1,48 @@
 import React from "react";
 import { Modal, Button } from "antd";
-import { Form, Input, Checkbox, Tabs } from "antd";
+import { Form, Input, Tabs } from "antd";
 import { InputNumber } from "antd";
 import "antd/dist/antd.css";
 import "./Login.scss";
+import GitHubLogin from "./GitHubLogin";
 
 import axios from "axios";
+import { toQuery } from "./utils";
+
+const client_id = `420f98f96d5639a39a20`;
+const client_secret = `a1de767b054482f306b680628b42cafa5b7a8a88`;
+const redirect_uri = `http://localhost:3000/`;
+
+const onSuccess = async (response) => {
+  const code = response.code;
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = async function () {
+    if (req.readyState == XMLHttpRequest.DONE) {
+      console.log(req.responseText);
+      const token = req.response.substring(17, 57);
+      await axios
+          .get(`https://api.github.com/user`, {
+            headers: {
+              Authorization: `token ${token}`,
+            },
+          })
+          .then((res) => console.log(res));
+    }
+  };
+
+  await req.open(
+    "POST",
+    "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
+    true
+  );
+  req.setRequestHeader("Accept", "application/json");
+  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  req.send(
+    `code=${code}&client_id=${client_id}&client_secret=${client_secret}`
+  );
+
+};
+const onFailure = (response) => console.error(response);
 
 // sign up
 const validateMessages = {
@@ -88,7 +125,7 @@ class Login extends React.Component {
     return (
       <div>
         <Button type="primary" onClick={this.showModal}>
-        로그인
+          로그인
         </Button>
         <Modal
           // title="Sign In ✨ Sign Up"
@@ -133,10 +170,17 @@ class Login extends React.Component {
                   <Button type="primary" htmlType="submit">
                     로그인 하기
                   </Button>
-                  <img
+                  {/* <img
                     class="signInGithub"
                     width="200px"
                     src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png"
+                    onClick={}
+                  /> */}
+                  <GitHubLogin
+                    clientId="420f98f96d5639a39a20"
+                    redirectUri="http://localhost:3000/"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
                   />
                 </Form.Item>
               </Form>
