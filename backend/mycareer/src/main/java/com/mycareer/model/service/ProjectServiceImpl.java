@@ -55,6 +55,20 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 	}
 
+	@Override
+	public Project findByProjectNo(int projectNo) {
+		Project p = pr.findByProjectNo(projectNo);
+		try {
+			if (Objects.isNull(p))
+				return null;
+			else
+				return p;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	// 프로젝트에 대한 저장 기능
 	// 하나의 프로젝트만 저장하기
 	@Override
@@ -67,14 +81,14 @@ public class ProjectServiceImpl implements ProjectService {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public int deleteProject(int projectNo) {
 		try {
 			Project dProject = pr.findByProjectNo(projectNo);
-			if(Objects.isNull(dProject)) {
+			if (Objects.isNull(dProject)) {
 				return 0;
-			}else {
+			} else {
 				pr.deleteById(projectNo);
 				return 1;
 			}
@@ -83,7 +97,6 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return 0;
 	}
-	
 
 	/** Role 관련 메서드 */
 
@@ -108,11 +121,11 @@ public class ProjectServiceImpl implements ProjectService {
 	public Role saveRole(Role role, int projectNo) {
 		try {
 			Role sRole = rr.findByRoleNo(role.getRoleNo());
-			if(Objects.isNull(sRole)) {
+			if (Objects.isNull(sRole)) {
 				role.setRProject(pr.findByProjectNo(projectNo));
 				rr.save(role);
 				return role;
-			}else {
+			} else {
 				return null;
 			}
 		} catch (Exception e) {
@@ -120,15 +133,15 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return null;
 	}
-	
+
 	// role 수정
 	@Override
 	public int updateRole(Role role) {
 		try {
 			Role uRole = rr.findByRoleNo(role.getRoleNo());
-			if(Objects.isNull(uRole)) {
+			if (Objects.isNull(uRole)) {
 				return 0;
-			}else {
+			} else {
 				rr.save(role);
 				return 1;
 			}
@@ -137,13 +150,13 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return 0;
 	}
-	
+
 	// role 삭제
 	@Override
 	public int deleteRole(int roleNo) {
-	    try {
+		try {
 			Role dRole = rr.findByRoleNo(roleNo);
-			if(Objects.isNull(dRole))
+			if (Objects.isNull(dRole))
 				return 0;
 			else {
 				rr.deleteById(roleNo);
@@ -154,7 +167,6 @@ public class ProjectServiceImpl implements ProjectService {
 		}
 		return 0;
 	}
-    
 
 	/** Role Develop 관련 메서드 */
 

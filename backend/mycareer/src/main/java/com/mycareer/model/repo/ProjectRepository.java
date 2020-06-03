@@ -14,7 +14,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	List<Project> findAllBypUserUserNo(int userNo);
 
 	// 불러온 프로젝트 중에 하나만 가져온다.
-	Project findByProjectNoAndPUserUserNo(int projectNo, int userNo);
+//	Project findByProjectNoAndpUserUserNo(int projectNo, int userNo);
 	
 	// 해당 no에 속하는 프로젝트를 가져온다.
 	Project findByProjectNo(int projectNo);

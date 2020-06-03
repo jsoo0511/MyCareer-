@@ -20,6 +20,7 @@ public interface ProjectService {
 	// 프로젝트 삭제 기능
 	int deleteProject(int projectNo);
 
+	Project findByProjectNo(int projectNo);
 	/** Role 관련 메서드 */
 
 	// role 역할을 다 가져오는 메서드

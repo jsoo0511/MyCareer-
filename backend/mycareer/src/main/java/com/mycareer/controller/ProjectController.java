@@ -1,6 +1,9 @@
 package com.mycareer.controller;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycareer.model.dto.Project;
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.project.Api;
+import com.mycareer.model.dto.project.OnlyApi;
+import com.mycareer.model.dto.project.OnlyProject;
+import com.mycareer.model.dto.project.OnlyRole;
+import com.mycareer.model.dto.project.OnlyTech;
 import com.mycareer.model.dto.project.Role;
 import com.mycareer.model.dto.project.Tech;
 import com.mycareer.model.service.ProjectService;
@@ -34,6 +41,41 @@ public class ProjectController {
 	ProjectService ps;
 
 	/** Project 관련 */
+	@GetMapping("project")
+	@ApiOperation(value="projectNo에해당하는 모든 project정보 출력")
+	public ResponseEntity<Map<String,Object>> Project(@RequestParam int projectNo){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			//Project에 관한 모든 정보들 가져옴
+			List<Role> rList=ps.findAllRoleByProjectNo(projectNo);
+			List<Tech> tList = ps.findBytProjectProjectNo(projectNo);
+			List<Api> aList = ps.findByaProjectProjectNo(projectNo);
+			Project p=ps.findByProjectNo(projectNo);
+			
+			//불필요한 정보들 제거후 필요한 정보들만 다시 추출
+			OnlyProject project=new OnlyProject(p.getProjectNo()
+					,p.getProjectTitle(),p.getProjectInfo(),p.getContribution(),
+					p.getUrl(),p.getStartDay(),p.getEndDay());
+			List<OnlyApi> oaList=new LinkedList<OnlyApi>();
+			List<OnlyRole> orList=new LinkedList<OnlyRole>();
+			List<OnlyTech> otList=new LinkedList<OnlyTech>();
+			for(Api a:aList)
+				oaList.add(new OnlyApi(a.getApiNo(),a.getApiName(),a.getApiInfo()));
+			for(Role r:rList)
+				orList.add(new OnlyRole(r.getRoleNo(),r.getRoleName()));
+			for(Tech t:tList)
+				otList.add(new OnlyTech(t.getTechNo(),t.getTechName()));
+			resultMap.put("Project", project);
+			resultMap.put("Role", orList);
+			resultMap.put("Api",oaList);
+			resultMap.put("Tech", otList);
+			return new ResponseEntity<>(resultMap,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@GetMapping("project/{userNo}")
 	@ApiOperation(value = "userNo로 해당 유저의 프로젝트들을 불러온다.")
 	public ResponseEntity<Object> findAllByProject(@PathVariable int userNo) {
@@ -45,6 +87,17 @@ public class ProjectController {
 		}
 	}
 
+	@GetMapping("project/info/{projectNo}")
+	@ApiOperation(value = "projectNo로  간단한 프로젝트들을 불러온다.")
+	public ResponseEntity<Object> findByProjectNo(@PathVariable int projectNo) {
+		Project p = ps.findByProjectNo(projectNo);
+		if (Objects.isNull(p)) {
+			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+		} else {
+			return new ResponseEntity<Object>(p, HttpStatus.OK);
+		}
+	}
+	
 	@PostMapping("project/{userNo}")
 	@ApiOperation(value = "해당 유저에서 프로젝트 등록")
 	public ResponseEntity<Object> saveProject(Project project, @PathVariable int userNo) {
