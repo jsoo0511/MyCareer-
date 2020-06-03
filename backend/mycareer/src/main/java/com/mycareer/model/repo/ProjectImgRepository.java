@@ -11,7 +11,6 @@ import com.mycareer.model.dto.project.ProjectImg;
 public interface ProjectImgRepository extends JpaRepository<ProjectImg, Integer>{
 
 	//이미지 전체 조회
-	// findAll
 	
 	// 이미지 프로젝트 넘버로 가져오기
 	List<ProjectImg> findAllByiProjectProjectNo(int projectNo);
