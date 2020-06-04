@@ -1,6 +1,7 @@
 
 package com.mycareer.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.user.Award;
 import com.mycareer.model.dto.user.Qualification;
 import com.mycareer.model.dto.user.Url;
+import com.mycareer.model.service.ImageServiceImpl;
 import com.mycareer.model.service.UserService;
 
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +38,9 @@ public class UserController {
 
 	@Autowired
 	private UserService us;
+
+	@Autowired
+	private ImageServiceImpl is;
 
 //	@RequestMapping(method = RequestMethod.GET, value = "user/{userNo}")
 	@GetMapping(value = "users/{userNo}")
@@ -50,12 +56,13 @@ public class UserController {
 
 	@PutMapping(value = "users/{userNo}")
 	@ApiOperation(value = "userNo 회원 정보 수정")
-	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user) {
+	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user, MultipartFile profile) throws IOException, Exception {
 		User tUser = us.findByUserNo(userNo);
 		if (Objects.isNull(tUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
 		} else {
-			return new ResponseEntity<Object>(us.updateUser(user), HttpStatus.OK);
+			String file = is.upload(profile, "home\\ubuntu", "profile").getSrc();
+			return new ResponseEntity<Object>(us.updateUser(user,file), HttpStatus.OK);
 		}
 	}
 	
@@ -94,12 +101,13 @@ public class UserController {
 
 	@PostMapping(value = "users/register")
 	@ApiOperation(value = "유저 회원가입")
-	public ResponseEntity<Object> register(@RequestBody User user) {
-		User registerUser = us.signUp(user);
+	public ResponseEntity<Object> register(@RequestBody User user, MultipartFile profile) throws IOException, Exception {
+		User registerUser = us.findByUserNo(user.getUserNo());
 		if (Objects.isNull(registerUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		} else {
-			return new ResponseEntity<Object>(registerUser, HttpStatus.CREATED);
+			String file = is.upload(profile, "home\\ubuntu", "profile").getSrc();
+			return new ResponseEntity<Object>(us.signUp(user, file), HttpStatus.CREATED);
 		}
 	}
 	
@@ -217,5 +225,15 @@ public class UserController {
 			return new ResponseEntity<Object>("Delete success", HttpStatus.OK);
 		else
 			return new ResponseEntity<Object>("Delete Fail", HttpStatus.CONFLICT);
+	}
+	
+	@PostMapping(value = "img/{userNo}")
+	public ResponseEntity<Object> addImg(@PathVariable int userNo, MultipartFile file) throws IOException, Exception{
+		String profile = is.upload(file, "home\\ubuntu", "profile").getSrc();
+		User user = us.findByUserNo(userNo);
+		user.setProfile(profile);
+//		us.updateUser(user);
+		return new ResponseEntity<Object>(user, HttpStatus.OK);
+		
 	}
 }

@@ -41,6 +41,7 @@ public class User {
 	String job;
 	String phone;
 	String provider;
+	String profile;
 
 //	String created;
 //	String deleted;
