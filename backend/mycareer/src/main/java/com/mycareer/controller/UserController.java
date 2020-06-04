@@ -1,12 +1,9 @@
 
 package com.mycareer.controller;
 
-<<<<<<< HEAD
 import java.io.IOException;
-=======
 import java.util.HashMap;
 import java.util.LinkedList;
->>>>>>> de742809fc685cd7f1544574a2c804573393c296
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
