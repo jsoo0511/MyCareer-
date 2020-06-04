@@ -1,8 +1,14 @@
 
 package com.mycareer.controller;
 
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+import java.util.HashMap;
+import java.util.LinkedList;
+>>>>>>> de742809fc685cd7f1544574a2c804573393c296
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +29,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mycareer.model.dto.Project;
 import com.mycareer.model.dto.User;
+import com.mycareer.model.dto.project.Api;
+import com.mycareer.model.dto.project.OnlyApi;
+import com.mycareer.model.dto.project.OnlyProject;
+import com.mycareer.model.dto.project.OnlyRole;
+import com.mycareer.model.dto.project.OnlyTech;
+import com.mycareer.model.dto.project.Role;
+import com.mycareer.model.dto.project.Tech;
 import com.mycareer.model.dto.user.Award;
+import com.mycareer.model.dto.user.Career;
+import com.mycareer.model.dto.user.Language;
+import com.mycareer.model.dto.user.OnlyAward;
+import com.mycareer.model.dto.user.OnlyCareer;
+import com.mycareer.model.dto.user.OnlyLanguage;
+import com.mycareer.model.dto.user.OnlyQualification;
+import com.mycareer.model.dto.user.OnlyUrl;
 import com.mycareer.model.dto.user.Qualification;
 import com.mycareer.model.dto.user.Url;
 import com.mycareer.model.service.ImageServiceImpl;
@@ -38,6 +59,48 @@ public class UserController {
 
 	@Autowired
 	private UserService us;
+	
+	@GetMapping(value="user")
+	@ApiOperation(value="userNo로 회원의 모든 정보 조회")
+	public ResponseEntity<Map<String,Object>> User(@RequestParam int userNo){
+		Map<String,Object> resultMap = new HashMap<String, Object>();
+		try {
+			//Project에 관한 모든 정보들 가져옴
+			List<Award> aList=us.findAllByUserNo(userNo);
+			List<Qualification> qList = us.findAllByqUserUserNo(userNo);
+			List<Url> uList = us.findAllByuUserUserNo(userNo);
+			List<Career> cList=us.findAllByCareerUserNo(userNo);
+			List<Language> lList=us.findAllByLanguageUserNo(userNo);
+			User user=us.findByUserNo(userNo);
+			
+			//불필요한 정보들 제거후 필요한 정보들만 다시 추출
+			List<OnlyAward> oaList=new LinkedList<OnlyAward>();
+			List<OnlyQualification> oqList=new LinkedList<OnlyQualification>();
+			List<OnlyUrl> ouList=new LinkedList<OnlyUrl>();
+			List<OnlyCareer> ocList=new LinkedList<OnlyCareer>();
+			List<OnlyLanguage> olList=new LinkedList<OnlyLanguage>();
+			for(Award a:aList)
+				oaList.add(new OnlyAward(a.getAwardNo(),a.getATitle(),a.getAInfo(),a.getGainDay(),a.getGrade()));
+			for(Qualification q:qList)
+				oqList.add(new OnlyQualification(q.getQualificationNo(),q.getQualificationTitle(),q.getGainDay(),q.getGrade(),q.getScore()));
+			for(Url url:uList)
+				ouList.add(new OnlyUrl(url.getUrlNo(),url.getUrl(),url.getUrlInfo()));
+			for(Career c:cList)
+				ocList.add(new OnlyCareer(c.getCareerNo(),c.getCareerTitle(),c.getStart(),c.getEnd(),c.getDetail()));
+			for(Language l:lList)
+				olList.add(new OnlyLanguage(l.getLanguageNo(),l.getLanguageName(),l.getLevel(),l.getReason()));
+			resultMap.put("User", user);
+			resultMap.put("Award", oaList);
+			resultMap.put("Qualification",oqList);
+			resultMap.put("Url", ouList);
+			resultMap.put("Career",ocList);
+			resultMap.put("Language",olList);
+			return new ResponseEntity<>(resultMap,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	@Autowired
 	private ImageServiceImpl is;
@@ -236,4 +299,27 @@ public class UserController {
 		return new ResponseEntity<Object>(user, HttpStatus.OK);
 		
 	}
+
+	/**Career 관련 메서드*/
+	@GetMapping("users/career/{userNo}")
+	public ResponseEntity<Object> findAllByCareerUserNo(@PathVariable int userNo){
+		List<Career> cList = us.findAllByCareerUserNo(userNo);
+		if (Objects.isNull(cList))
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<Object>(cList, HttpStatus.OK);
+
+	}
+	
+	
+	/**Language 관련 메서드*/
+	@GetMapping("users/language/{userNo}")
+	public ResponseEntity<Object> findAllByLanguageUserNo(@PathVariable int userNo){
+		List<Language> lList = us.findAllByLanguageUserNo(userNo);
+		if (Objects.isNull(lList))
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<Object>(lList, HttpStatus.OK);
+	}
+
 }
