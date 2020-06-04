@@ -14,12 +14,14 @@ import javax.persistence.Table;
 import com.mycareer.model.dto.User;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="award")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Award {
 
 	@Id

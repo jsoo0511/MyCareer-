@@ -1,4 +1,4 @@
-package com.mycareer.model.dto.project;
+package com.mycareer.model.dto.user;
 
 import javax.persistence.Column;
 
@@ -11,8 +11,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OnlyTech {
-	int techNo;
+public class OnlyCareer {
+	int careerNo;
 
-	String techName;
+	String careerTitle;
+
+	String start;
+	String end;
+
+	String detail;
 }
