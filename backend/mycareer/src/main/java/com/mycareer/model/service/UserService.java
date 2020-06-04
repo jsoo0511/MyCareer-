@@ -4,6 +4,7 @@ package com.mycareer.model.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.user.Award;
@@ -22,9 +23,9 @@ public interface UserService {
 	// 로그인
 	User login(String email, String password);
 	// 회원가입
-	User signUp(User user);
+	User signUp(User user, String profile);
 	// 회원 정보 수정
-	User updateUser(User user);
+	User updateUser(User user, String profile);
 	// 회원 정보 삭제(탈퇴)
 	int deleteUser(int userNo);
 	
