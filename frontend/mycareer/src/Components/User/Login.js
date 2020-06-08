@@ -122,6 +122,7 @@ class Login extends React.Component {
       .then((res) => {
         console.log(res);
         sessionStorage.setItem("username", res.data.name);
+        sessionStorage.setItem("userno", res.data.userNo);
       });
   };
 
@@ -197,7 +198,7 @@ class Login extends React.Component {
                     로그인 하기
                   </Button>
                   &nbsp;
-                  <GitHubLogin
+                  <GitHubLogin htmlType="submit"
                     clientId="420f98f96d5639a39a20"
                     redirectUri="http://localhost:3000/"
                     onSuccess={this.onSuccess}
