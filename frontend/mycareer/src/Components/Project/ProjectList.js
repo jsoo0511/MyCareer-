@@ -20,9 +20,13 @@ class ProjectList extends React.Component {
               <br />
               <Row>
                 <Col span={12}>
-                  <Button>인적사항 수정</Button>
+                  <Link to="/personal">
+                    <Button>인적사항 수정</Button>
+                  </Link>
                   &nbsp;&nbsp;
-                  <Button>회원정보 수정</Button>
+                  <Link to="/userInfo">
+                    <Button>회원정보 수정</Button>
+                  </Link>
                 </Col>
                 <Col span={6}></Col>
                 <Col span={6}>
