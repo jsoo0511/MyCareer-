@@ -159,7 +159,7 @@ class Login extends React.Component {
     return (
       <div>
         <Button id="loginMain" type="primary" onClick={this.showModal}>
-          로그인
+          {sessionStorage.getItem("username") ? sessionStorage.getItem("username") + ' 님' : '로그인'}
         </Button>
         <Modal
           visible={this.state.visible}
