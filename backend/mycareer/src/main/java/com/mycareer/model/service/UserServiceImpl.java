@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.user.Award;
@@ -93,10 +94,11 @@ public class UserServiceImpl implements UserService {
 
 	// 회원가입
 	@Override
-	public User signUp(User user) {
+	public User signUp(User user, String profile) {
 		try {
 			User joinUser = ur.findByEmail(user.getEmail());
 			if (Objects.isNull(joinUser)) {
+				user.setProfile(profile);
 				ur.save(user);
 				return user;
 			} else {
@@ -110,12 +112,13 @@ public class UserServiceImpl implements UserService {
 
 	// 회원정보 수정
 	@Override
-	public User updateUser(User user) {
+	public User updateUser(User user, String profile) {
 		try {
 			User findUser = ur.findByUserNo(user.getUserNo());
 			if (Objects.isNull(findUser)) {
 				throw new Exception("회원 정보를 불러올 수 없습니다.");
 			} else {
+				user.setProfile(profile);
 				ur.save(user);
 				return user;
 			}

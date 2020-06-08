@@ -2,11 +2,15 @@ package com.mycareer.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.repo.ProjectImgRepository;
 import com.mycareer.util.UploadFileUtils;
@@ -21,15 +25,14 @@ public class ImageServiceImpl {
 	// 이미지 업로드 경로 : home/ubuntu
 	// 연, 월, 일을 기준으로 폴더를 나누어서 생성.
 
-	// 단일 파일 업로드
 	public ProjectImg upload(MultipartFile file, String uploadPath, String delivery) throws IOException, Exception {
+
+		ProjectImg pimg = new ProjectImg();
 
 		String imgUploadPath = uploadPath + File.separator + delivery;
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String fileName = null;
-
-		ProjectImg tmp = new ProjectImg();
 
 		if (file != null) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
@@ -40,12 +43,41 @@ public class ImageServiceImpl {
 				return null;
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			tmp.setSrc(File.separator + delivery + ymdPath + File.separator + fileName);
+
+			pimg.setSrc(File.separator + delivery + ymdPath + File.separator + fileName);
+			return pimg;
+
 		} else {
-			fileName = File.separatorChar + delivery + File.separator + "none.png";
-			tmp.setSrc(fileName);
+
+			pimg.setSrc(File.separator + delivery + ymdPath + File.separator + fileName);
+			return pimg;
+
 		}
-		return tmp;
 
 	}
+
+	// 단일 파일 업로드
+	public ProjectImg uploadFile(MultipartFile file, String path, String deli) throws Exception {
+		try {
+			ProjectImg pimg = upload(file, path, deli);
+			return pimg;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	// 다중 파일 업로드
+	public List<Object> uploadFiles(MultipartFile[] files, String path, String deli) {
+		List<Object> tList = Arrays.asList(files).stream().map(file -> {
+			try {
+				return upload(file, path, deli);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}).collect(Collectors.toList());
+		return tList;
+	}
+
 }
