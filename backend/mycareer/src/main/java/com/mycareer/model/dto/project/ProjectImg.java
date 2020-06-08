@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter	
 public class ProjectImg {
 	
 	@Id
@@ -37,4 +37,10 @@ public class ProjectImg {
 	@JoinColumn(name="project_no", referencedColumnName = "project_no")
 	Project iProject;
 
+	public ProjectImg(String src) {
+		super();
+		this.src = src;
+	}
+
+	
 }

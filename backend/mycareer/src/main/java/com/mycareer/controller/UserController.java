@@ -1,6 +1,7 @@
 
 package com.mycareer.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,6 +34,7 @@ import com.mycareer.model.dto.project.OnlyApi;
 import com.mycareer.model.dto.project.OnlyProject;
 import com.mycareer.model.dto.project.OnlyRole;
 import com.mycareer.model.dto.project.OnlyTech;
+import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.dto.project.Role;
 import com.mycareer.model.dto.project.Tech;
 import com.mycareer.model.dto.user.Award;
@@ -47,6 +49,7 @@ import com.mycareer.model.dto.user.Qualification;
 import com.mycareer.model.dto.user.Url;
 import com.mycareer.model.service.ImageServiceImpl;
 import com.mycareer.model.service.UserService;
+import com.mycareer.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -56,43 +59,45 @@ public class UserController {
 
 	@Autowired
 	private UserService us;
-	
-	@GetMapping(value="user")
-	@ApiOperation(value="userNo로 회원의 모든 정보 조회")
-	public ResponseEntity<Map<String,Object>> User(@RequestParam int userNo){
-		Map<String,Object> resultMap = new HashMap<String, Object>();
+
+	@GetMapping(value = "user")
+	@ApiOperation(value = "userNo로 회원의 모든 정보 조회")
+	public ResponseEntity<Map<String, Object>> User(@RequestParam int userNo) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			//Project에 관한 모든 정보들 가져옴
-			List<Award> aList=us.findAllByUserNo(userNo);
+			// Project에 관한 모든 정보들 가져옴
+			List<Award> aList = us.findAllByUserNo(userNo);
 			List<Qualification> qList = us.findAllByqUserUserNo(userNo);
 			List<Url> uList = us.findAllByuUserUserNo(userNo);
-			List<Career> cList=us.findAllByCareerUserNo(userNo);
-			List<Language> lList=us.findAllByLanguageUserNo(userNo);
-			User user=us.findByUserNo(userNo);
-			
-			//불필요한 정보들 제거후 필요한 정보들만 다시 추출
-			List<OnlyAward> oaList=new LinkedList<OnlyAward>();
-			List<OnlyQualification> oqList=new LinkedList<OnlyQualification>();
-			List<OnlyUrl> ouList=new LinkedList<OnlyUrl>();
-			List<OnlyCareer> ocList=new LinkedList<OnlyCareer>();
-			List<OnlyLanguage> olList=new LinkedList<OnlyLanguage>();
-			for(Award a:aList)
-				oaList.add(new OnlyAward(a.getAwardNo(),a.getATitle(),a.getAInfo(),a.getGainDay(),a.getGrade()));
-			for(Qualification q:qList)
-				oqList.add(new OnlyQualification(q.getQualificationNo(),q.getQualificationTitle(),q.getGainDay(),q.getGrade(),q.getScore()));
-			for(Url url:uList)
-				ouList.add(new OnlyUrl(url.getUrlNo(),url.getUrl(),url.getUrlInfo()));
-			for(Career c:cList)
-				ocList.add(new OnlyCareer(c.getCareerNo(),c.getCareerTitle(),c.getStart(),c.getEnd(),c.getDetail()));
-			for(Language l:lList)
-				olList.add(new OnlyLanguage(l.getLanguageNo(),l.getLanguageName(),l.getLevel(),l.getReason()));
+			List<Career> cList = us.findAllByCareerUserNo(userNo);
+			List<Language> lList = us.findAllByLanguageUserNo(userNo);
+			User user = us.findByUserNo(userNo);
+
+			// 불필요한 정보들 제거후 필요한 정보들만 다시 추출
+			List<OnlyAward> oaList = new LinkedList<OnlyAward>();
+			List<OnlyQualification> oqList = new LinkedList<OnlyQualification>();
+			List<OnlyUrl> ouList = new LinkedList<OnlyUrl>();
+			List<OnlyCareer> ocList = new LinkedList<OnlyCareer>();
+			List<OnlyLanguage> olList = new LinkedList<OnlyLanguage>();
+			for (Award a : aList)
+				oaList.add(new OnlyAward(a.getAwardNo(), a.getATitle(), a.getAInfo(), a.getGainDay(), a.getGrade()));
+			for (Qualification q : qList)
+				oqList.add(new OnlyQualification(q.getQualificationNo(), q.getQualificationTitle(), q.getGainDay(),
+						q.getGrade(), q.getScore()));
+			for (Url url : uList)
+				ouList.add(new OnlyUrl(url.getUrlNo(), url.getUrl(), url.getUrlInfo()));
+			for (Career c : cList)
+				ocList.add(
+						new OnlyCareer(c.getCareerNo(), c.getCareerTitle(), c.getStart(), c.getEnd(), c.getDetail()));
+			for (Language l : lList)
+				olList.add(new OnlyLanguage(l.getLanguageNo(), l.getLanguageName(), l.getLevel(), l.getReason()));
 			resultMap.put("User", user);
 			resultMap.put("Award", oaList);
-			resultMap.put("Qualification",oqList);
+			resultMap.put("Qualification", oqList);
 			resultMap.put("Url", ouList);
-			resultMap.put("Career",ocList);
-			resultMap.put("Language",olList);
-			return new ResponseEntity<>(resultMap,HttpStatus.OK);
+			resultMap.put("Career", ocList);
+			resultMap.put("Language", olList);
+			return new ResponseEntity<>(resultMap, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -116,22 +121,43 @@ public class UserController {
 
 	@PutMapping(value = "users/{userNo}")
 	@ApiOperation(value = "userNo 회원 정보 수정")
-	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody User user, MultipartFile profile) throws IOException, Exception {
+//	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestBody(required = false) User user,
+//			@RequestParam(required = false) MultipartFile profile) throws IOException, Exception {
+	public ResponseEntity<Object> updateUser(@PathVariable int userNo, @RequestParam(required = false) String password,
+			@RequestParam(required = false) String name, @RequestParam(required = false) String birth,
+			@RequestParam(required = false) String gender, @RequestParam(required = false) String job,
+			@RequestParam(required = false) String phone, @RequestParam(required = false) MultipartFile profile)
+			throws IOException, Exception {
 		User tUser = us.findByUserNo(userNo);
 		if (Objects.isNull(tUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
 		} else {
-			String file = is.upload(profile, "home\\ubuntu", "profile").getSrc();
-			return new ResponseEntity<Object>(us.updateUser(user,file), HttpStatus.OK);
+			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
+			System.out.println(tUser.toString());
+			System.out.println("어디가 문제인가");
+			ResultMap<ProjectImg> file = is.uploadFile(profile, imgUploadPath, "profile");
+			System.out.println(file);
+
+			if (birth != null)
+				tUser.setBirth(birth);
+			if (gender != null)
+				tUser.setGender(gender);
+			if (job != null)
+				tUser.setJob(job);
+			if (name != null)
+				tUser.setName(name);
+			if (phone != null)
+				tUser.setPhone(phone);
+			return new ResponseEntity<Object>(us.updateUser(tUser, file.getData().getSrc()), HttpStatus.OK);
 		}
 	}
-	
+
 	@DeleteMapping(value = "users/{userNo}")
 	@ApiOperation(value = "userNo 회원 정보 삭제/탈퇴")
-	public ResponseEntity<Object> deleteUser(@PathVariable int userNo){
-		if(us.deleteUser(userNo) == 1) {
+	public ResponseEntity<Object> deleteUser(@PathVariable int userNo) {
+		if (us.deleteUser(userNo) == 1) {
 			return new ResponseEntity<Object>("탈퇴 성공", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<Object>("탈퇴 실패", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -161,16 +187,16 @@ public class UserController {
 
 	@PostMapping(value = "users/register")
 	@ApiOperation(value = "유저 회원가입")
-	public ResponseEntity<Object> register(@RequestBody User user, MultipartFile profile) throws IOException, Exception {
+	public ResponseEntity<Object> register(@RequestBody User user)
+			throws IOException, Exception {
 		User registerUser = us.findByUserNo(user.getUserNo());
 		if (Objects.isNull(registerUser)) {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		} else {
-			String file = is.upload(profile, "home\\ubuntu", "profile").getSrc();
-			return new ResponseEntity<Object>(us.signUp(user, file), HttpStatus.CREATED);
+			return new ResponseEntity<Object>(us.signUp(user), HttpStatus.CREATED);
 		}
 	}
-	
+
 	@GetMapping(value = "users/awards/{userNo}")
 	@ApiOperation(value = "user에 해당되는 award 리스트 조회")
 	public ResponseEntity<Object> findAllByAwardUserNo(@PathVariable int userNo) {
@@ -286,20 +312,20 @@ public class UserController {
 		else
 			return new ResponseEntity<Object>("Delete Fail", HttpStatus.CONFLICT);
 	}
-	
+
 	@PostMapping(value = "img/{userNo}")
-	public ResponseEntity<Object> addImg(@PathVariable int userNo, MultipartFile file) throws IOException, Exception{
+	public ResponseEntity<Object> addImg(@PathVariable int userNo, MultipartFile file) throws IOException, Exception {
 		String profile = is.upload(file, "home\\ubuntu", "profile").getSrc();
 		User user = us.findByUserNo(userNo);
 		user.setProfile(profile);
 //		us.updateUser(user);
 		return new ResponseEntity<Object>(user, HttpStatus.OK);
-		
+
 	}
 
-	/**Career 관련 메서드*/
+	/** Career 관련 메서드 */
 	@GetMapping("users/career/{userNo}")
-	public ResponseEntity<Object> findAllByCareerUserNo(@PathVariable int userNo){
+	public ResponseEntity<Object> findAllByCareerUserNo(@PathVariable int userNo) {
 		List<Career> cList = us.findAllByCareerUserNo(userNo);
 		if (Objects.isNull(cList))
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);
@@ -307,11 +333,10 @@ public class UserController {
 			return new ResponseEntity<Object>(cList, HttpStatus.OK);
 
 	}
-	
-	
-	/**Language 관련 메서드*/
+
+	/** Language 관련 메서드 */
 	@GetMapping("users/language/{userNo}")
-	public ResponseEntity<Object> findAllByLanguageUserNo(@PathVariable int userNo){
+	public ResponseEntity<Object> findAllByLanguageUserNo(@PathVariable int userNo) {
 		List<Language> lList = us.findAllByLanguageUserNo(userNo);
 		if (Objects.isNull(lList))
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_FOUND);

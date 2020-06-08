@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.Project;
 import com.mycareer.model.dto.User;
@@ -100,18 +101,19 @@ public class ProjectController {
 	
 	@PostMapping("project/{userNo}")
 	@ApiOperation(value = "해당 유저에서 프로젝트 등록")
-	public ResponseEntity<Object> saveProject(Project project, @PathVariable int userNo) {
-		if (Objects.isNull(ps.saveProejctOne(project)))
-			return new ResponseEntity<Object>(ps.saveProejctOne(project), HttpStatus.NOT_ACCEPTABLE);
+	public ResponseEntity<Object> saveProject(@RequestBody Project project, @PathVariable int userNo,@RequestParam MultipartFile[] files) {
+		System.out.println(files.length);
+		if (project.getProjectNo() == 0)
+			return new ResponseEntity<Object>(ps.saveProejctOne(project,userNo, files), HttpStatus.OK);
 		else
-			return new ResponseEntity<Object>(ps.saveProejctOne(project), HttpStatus.OK);
+			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	@PutMapping("project/{userNo}&{projectNo}")
 	@ApiOperation(value = "해당 유저에 대한 프로젝트 수정")
-	public ResponseEntity<Object> updateProject(Project project, @PathVariable int userNo,
+	public ResponseEntity<Object> updateProject(@RequestBody Project project, @PathVariable int userNo,
 			@PathVariable int proejctNo) {
-		return new ResponseEntity<Object>(ps.saveProejctOne(project), HttpStatus.OK);
+		return new ResponseEntity<Object>(ps.saveProejctOne(project, userNo), HttpStatus.OK);
 	}
 
 	/** Role 관련 */

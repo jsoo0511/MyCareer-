@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.repo.ProjectImgRepository;
+import com.mycareer.util.ResultMap;
 import com.mycareer.util.UploadFileUtils;
 
 @Service
@@ -57,10 +58,10 @@ public class ImageServiceImpl {
 	}
 
 	// 단일 파일 업로드
-	public ProjectImg uploadFile(MultipartFile file, String path, String deli) throws Exception {
+	public ResultMap<ProjectImg> uploadFile(MultipartFile file, String path, String deli) throws Exception {
 		try {
 			ProjectImg pimg = upload(file, path, deli);
-			return pimg;
+			return new ResultMap<ProjectImg>(200, "파일 업로드 완료", pimg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -68,8 +69,8 @@ public class ImageServiceImpl {
 	}
 
 	// 다중 파일 업로드
-	public List<Object> uploadFiles(MultipartFile[] files, String path, String deli) {
-		List<Object> tList = Arrays.asList(files).stream().map(file -> {
+	public ResultMap<List<ProjectImg>> uploadFiles(MultipartFile[] files, String path, String deli) {
+		List<ProjectImg> tList = Arrays.asList(files).stream().map(file -> {
 			try {
 				return upload(file, path, deli);
 			} catch (Exception e) {
@@ -77,7 +78,7 @@ public class ImageServiceImpl {
 				return null;
 			}
 		}).collect(Collectors.toList());
-		return tList;
+		return new ResultMap<List<ProjectImg>>(200, "다중 이미지 업로드 완료", tList);
 	}
 
 }
