@@ -5,8 +5,10 @@ class Header extends Component {
   render() {
     return (
       <div id="header-container">
-        <div id="header-title">마커</div>
-        <div id="header-login"><Login /></div>
+        <div id="header-title">My Career</div>
+        <div id="header-login">
+          <Login />
+        </div>
       </div>
     );
   }
