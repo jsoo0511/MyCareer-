@@ -92,6 +92,7 @@ class Login extends React.Component {
             },
           })
           .then((res) => {
+            sessionStorage.setItem("username", res.data.name);
             let loginBtn = document.querySelector("#loginMain");
             loginBtn.innerHTML = res.data.name + " 님";
           });
