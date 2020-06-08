@@ -97,6 +97,7 @@ class Login extends React.Component {
           });
       }
     };
+    this.closeModal();
 
     await req.open(
       "POST",
@@ -123,6 +124,9 @@ class Login extends React.Component {
         console.log(res);
         sessionStorage.setItem("username", res.data.name);
         sessionStorage.setItem("userno", res.data.userNo);
+        let loginBtn = document.querySelector("#loginMain");
+        loginBtn.innerHTML = res.data.name + " 님";
+        this.closeModal();
       });
   };
 
@@ -198,7 +202,8 @@ class Login extends React.Component {
                     로그인 하기
                   </Button>
                   &nbsp;
-                  <GitHubLogin htmlType="submit"
+                  <GitHubLogin
+                    htmlType="submit"
                     clientId="420f98f96d5639a39a20"
                     redirectUri="http://localhost:3000/"
                     onSuccess={this.onSuccess}
