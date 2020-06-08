@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import PopupWindow from "./PopupWindow";
 import { toQuery } from "./utils";
+import { Button } from "antd";
 
 class GitHubLogin extends Component {
   static propTypes = {
@@ -18,7 +19,7 @@ class GitHubLogin extends Component {
   };
 
   static defaultProps = {
-    buttonText: "Sign in with GitHub",
+    buttonText: " Sign in with GitHub ",
     redirectUri: "",
     scope: "user:email",
     onRequest: () => {},
@@ -70,7 +71,7 @@ class GitHubLogin extends Component {
       attrs.className = className;
     }
 
-    return <button {...attrs}>{ children || buttonText }</button>;
+    return <Button {...attrs}>{ children || buttonText }</Button>;
   }
 }
 
