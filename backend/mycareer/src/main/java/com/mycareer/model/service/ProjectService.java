@@ -2,6 +2,8 @@ package com.mycareer.model.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.mycareer.model.dto.Project;
 import com.mycareer.model.dto.project.Api;
 import com.mycareer.model.dto.project.Role;
@@ -15,7 +17,7 @@ public interface ProjectService {
 
 	// 프로젝트에 대한 저장 기능.
 	// 하나의 프로젝트에 대해 저장하기. 수정
-	Project saveProejctOne(Project project);
+	Project saveProejctOne(Project project, int userNo, MultipartFile[] files);
 
 	// 프로젝트 삭제 기능
 	int deleteProject(int projectNo);

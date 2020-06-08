@@ -94,11 +94,10 @@ public class UserServiceImpl implements UserService {
 
 	// 회원가입
 	@Override
-	public User signUp(User user, String profile) {
+	public User signUp(User user) {
 		try {
 			User joinUser = ur.findByEmail(user.getEmail());
 			if (Objects.isNull(joinUser)) {
-				user.setProfile(profile);
 				ur.save(user);
 				return user;
 			} else {
@@ -120,6 +119,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				user.setProfile(profile);
 				ur.save(user);
+				System.out.println(user.toString());
 				return user;
 			}
 		} catch (Exception e) {
