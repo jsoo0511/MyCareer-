@@ -1,48 +1,150 @@
-#main-container {
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  background-color: rgb(216, 111, 111);
+.main-container {
+  font-family: "Jua", sans-serif;
+  // font-family: "Gugi", cursive;
+  // font-family: "Black Han Sans", sans-serif;
+  // font-family: "Nanum Gothic", sans-serif;
+  // font-family: "Do Hyeon", sans-serif;
+  // font-family: "Open Sans", sans-serif;
 
-  #main-leftblock {
-    position: absolute;
-    width: 700px;
-    height: 750px;
-    background-color: rgb(22, 23, 107);
-    right: 0;
-    top: 80px;
+  .main-first-row {
+    width: 100%;
+    height: 650px;
 
-    #main-headtext {
-      margin-top: 200px;
-      font-size: 36px;
-      font-weight: bold;
-      text-align: center;
-      letter-spacing: 2px;
-      color: rgb(231, 231, 231);
+    .main-first-row-left {
+      float: left;
+      width: 60%;
+      height: 100%;
+      background-color: rgb(250, 250, 250);
+
+      img {
+        position: relative;
+        display: block;
+        width: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
     }
 
-    #main-start {
-      background-color: rgb(240, 240, 240);
-      width: 200px;
-      height: 70px;
-      font-weight: bold;
-      font-size: 32px;
-      color: rgb(53, 53, 53);
-      text-align: center;
-      line-height: 70px;
-      border-radius: 5px;
-      margin: auto;
-      margin-top: 100px;
+    .main-first-row-right {
+      float: left;
+      background-color: #17e9e0;
+      width: 40%;
+      height: 100%;
 
-      &:hover {
-        cursor: pointer;
+      .main-first-row-right-text {
+        margin-top: 170px;
+        font-size: 42px;
+        text-align: center;
+        letter-spacing: 5px;
+        color: rgb(40, 40, 45);
+
+        .main-first-row-right-sub-text {
+          font-size: 20px;
+          margin-top: 75px;
+        }
+      }
+
+      #main-start {
+        background-color: #fccd04;
+        width: 300px;
+        height: 60px;
+        font-weight: bold;
+        font-size: 32px;
+        color: rgb(53, 53, 53);
+        text-align: center;
+        line-height: 60px;
+        border-radius: 50px;
+        margin: auto;
+        margin-top: 50px;
+        letter-spacing: 5px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
 
-  #main-img {
-    position: absolute;
-    left: 200px;
-    top: 200px;
+  .main-rows {
+    width: 100%;
+    height: 550px;
+
+    .main-rows-inner {
+      position: relative;
+      width: 1200px;
+      height: 400px;
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .main-rows-texts {
+        float: left;
+        position: relative;
+        width: 600px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .main-rows-main-text {
+          color: rgb(40, 40, 45);
+          font-size: 52px;
+        }
+
+        .main-rows-sub-text {
+          padding: 30px 0;
+          font-size: 20px;
+        }
+
+        .main-rows-start {
+          display: inline-block;
+          margin-top: 20px;
+          width: 300px;
+          height: 60px;
+          font-size: 36px;
+          line-height: 60px;
+          background-color: #fccd04;
+          border-radius: 30px;
+          text-align: center;
+          color: rgb(53, 53, 53);
+          letter-spacing: 4px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .main-rows-img {
+        float: left;
+        width: 600px;
+        height: 100%;
+
+        img {
+          position: relative;
+          width: 100%;
+          top: 50%;
+          transform: translateY(-50%);
+          border-radius: 10px;
+        }
+
+        .main-rows-img-second {
+          float: left;
+          width: 70%;
+        }
+
+        .main-rows-img-third {
+          float: right;
+          width: 70%;
+        }
+      }
+    }
+
+    &:nth-child(odd) {
+      background-color: rgb(235, 235, 235);
+    }
+
+    &:nth-child(even) {
+      text-align: right;
+    }
   }
 }
