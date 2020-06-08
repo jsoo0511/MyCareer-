@@ -15,12 +15,15 @@ import com.mycareer.model.dto.Project;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "role_develop")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class RoleDevelop {
 
 	
@@ -37,5 +40,13 @@ public class RoleDevelop {
 	
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="role_no", referencedColumnName = "role_no")
+	@ToString.Exclude
 	Role dRole;
+
+	public RoleDevelop(String developName, String developInfo, Role dRole) {
+		super();
+		this.developName = developName;
+		this.developInfo = developInfo;
+		this.dRole = dRole;
+	}
 }

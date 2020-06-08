@@ -1,10 +1,18 @@
 package com.mycareer.model.dto.response;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.mycareer.model.dto.project.ProjectImg;
 
-public class ProjectResponse {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+public class ProjectResponse implements Serializable{
 
 	int projectNo;
 	String projectTitle;

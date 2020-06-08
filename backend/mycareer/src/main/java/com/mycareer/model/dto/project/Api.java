@@ -40,4 +40,13 @@ public class Api {
 	@JoinColumn(name="project_no", referencedColumnName = "project_no")
 	Project aProject;
 
+	public Api(String apiName, String apiInfo, Project aProject) {
+		super();
+		this.apiName = apiName;
+		this.apiInfo = apiInfo;
+		this.aProject = aProject;
+	}
+	
+	
+
 }

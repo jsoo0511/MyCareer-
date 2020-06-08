@@ -8,15 +8,20 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,9 +32,14 @@ import com.mycareer.model.dto.project.OnlyApi;
 import com.mycareer.model.dto.project.OnlyProject;
 import com.mycareer.model.dto.project.OnlyRole;
 import com.mycareer.model.dto.project.OnlyTech;
+import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.dto.project.Role;
+import com.mycareer.model.dto.project.RoleDevelop;
 import com.mycareer.model.dto.project.Tech;
+import com.mycareer.model.dto.response.ProjectResponse;
 import com.mycareer.model.service.ProjectService;
+import com.mycareer.model.service.UserService;
+import com.mycareer.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Response;
@@ -40,6 +50,8 @@ public class ProjectController {
 
 	@Autowired
 	ProjectService ps;
+	@Autowired
+	UserService us;
 
 	/** Project 관련 */
 	@GetMapping("project")
@@ -51,6 +63,7 @@ public class ProjectController {
 			List<Role> rList=ps.findAllRoleByProjectNo(projectNo);
 			List<Tech> tList = ps.findBytProjectProjectNo(projectNo);
 			List<Api> aList = ps.findByaProjectProjectNo(projectNo);
+			List<ProjectImg> piList = ps.findAllByProjectNo(projectNo);
 			Project p=ps.findByProjectNo(projectNo);
 			
 			//불필요한 정보들 제거후 필요한 정보들만 다시 추출
@@ -70,6 +83,7 @@ public class ProjectController {
 			resultMap.put("Role", orList);
 			resultMap.put("Api",oaList);
 			resultMap.put("Tech", otList);
+			resultMap.put("ProjectImg", piList);
 			return new ResponseEntity<>(resultMap,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,11 +94,12 @@ public class ProjectController {
 	@GetMapping("project/{userNo}")
 	@ApiOperation(value = "userNo로 해당 유저의 프로젝트들을 불러온다.")
 	public ResponseEntity<Object> findAllByProject(@PathVariable int userNo) {
-		List<Project> pList = ps.findAllByUserNo(userNo);
+//		List<Project> pList = ps.findAllByUserNo(userNo);
+		ResultMap<List<ProjectResponse>> pList = ps.findAllProjectUserNo(userNo);
 		if (Objects.isNull(pList)) {
 			return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
 		} else {
-			return new ResponseEntity<Object>(pList, HttpStatus.OK);
+			return new ResponseEntity<Object>(pList.getData(), HttpStatus.OK);
 		}
 	}
 
@@ -101,19 +116,42 @@ public class ProjectController {
 	
 	@PostMapping("project/{userNo}")
 	@ApiOperation(value = "해당 유저에서 프로젝트 등록")
-	public ResponseEntity<Object> saveProject(@RequestBody Project project, @PathVariable int userNo,@RequestParam MultipartFile[] files) {
-		System.out.println(files.length);
-		if (project.getProjectNo() == 0)
-			return new ResponseEntity<Object>(ps.saveProejctOne(project,userNo, files), HttpStatus.OK);
-		else
+	public ResponseEntity<Object> saveProject(
+			@RequestParam String projectTitle,
+			@RequestParam String startDate, 
+			@RequestParam String endDate, @RequestParam String projectInfo, @RequestParam(name = "인원 members") int members,
+			@RequestParam String url,
+			@RequestParam(name = "맡은 역할 role") String role,
+			@RequestParam(name = "사용한 기술 techs") List<String> techs, @RequestParam int templateNo,
+			@ModelAttribute("files") MultipartFile[] files, @PathVariable int userNo) {
+		
+		if (!Objects.isNull(us.findByUserNo(userNo))) {
+			Project newProject = new Project(projectTitle, projectInfo, members, url, startDate, endDate, templateNo);
+			return new ResponseEntity<Object>(ps.saveProejctOne(newProject, techs, role, userNo, files), HttpStatus.OK);
+		}else
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
 	}
 
-	@PutMapping("project/{userNo}&{projectNo}")
+	@PutMapping("project/{userNo}")
 	@ApiOperation(value = "해당 유저에 대한 프로젝트 수정")
-	public ResponseEntity<Object> updateProject(@RequestBody Project project, @PathVariable int userNo,
-			@PathVariable int proejctNo) {
-		return new ResponseEntity<Object>(ps.saveProejctOne(project, userNo), HttpStatus.OK);
+	public ResponseEntity<Object> updateProject(@RequestParam String projectTitle,
+			@RequestParam String startDate, 
+			@RequestParam String endDate, @RequestParam String projectInfo, @RequestParam(name = "인원 members") int members,
+			@RequestParam String url,
+			@RequestParam(name = "맡은 역할 role") String role,
+			@RequestParam(name = "사용한 기술 techs") List<String> techs, @RequestParam int templateNo,
+			@ModelAttribute("files") MultipartFile[] files, 
+			@PathVariable int userNo, @RequestParam int projectNo) {
+		Project newProject = ps.findByProjectNo(projectNo);
+		newProject.setProjectTitle(projectTitle);
+		newProject.setProjectInfo(projectInfo);
+		newProject.setContribution(members);
+		newProject.setEndDay(endDate);
+		newProject.setStartDay(startDate);
+		newProject.setTemplateNo(templateNo);
+		newProject.setUrl(url);
+		
+		return new ResponseEntity<Object>(ps.updateProjectOne(newProject, techs, role, userNo, files), HttpStatus.OK);
 	}
 
 	/** Role 관련 */

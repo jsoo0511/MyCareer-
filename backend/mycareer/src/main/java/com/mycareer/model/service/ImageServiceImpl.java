@@ -78,6 +78,7 @@ public class ImageServiceImpl {
 				return null;
 			}
 		}).collect(Collectors.toList());
+		System.out.println(tList.size());
 		return new ResultMap<List<ProjectImg>>(200, "다중 이미지 업로드 완료", tList);
 	}
 

@@ -36,7 +36,7 @@ public class Project implements Serializable {
 	int projectNo;
 
 	public Project(String projectTitle, String projectInfo, int contribution, String url, String startDay,
-			String endDay) {
+			String endDay, int templateNo) {
 		super();
 		this.projectTitle = projectTitle;
 		this.projectInfo = projectInfo;
@@ -44,6 +44,7 @@ public class Project implements Serializable {
 		this.url = url;
 		this.startDay = startDay;
 		this.endDay = endDay;
+		this.templateNo = templateNo;
 	}
 
 	@Column(name = "project_title")
@@ -59,6 +60,9 @@ public class Project implements Serializable {
 	String startDay;
 	@Column(name = "end_day")
 	String endDay;
+	
+	@Column(name = "template_no")
+	int templateNo;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_no", referencedColumnName = "user_no")

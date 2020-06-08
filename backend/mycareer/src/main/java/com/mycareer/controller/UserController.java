@@ -133,10 +133,8 @@ public class UserController {
 			return new ResponseEntity<Object>(null, HttpStatus.NOT_ACCEPTABLE);
 		} else {
 			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
-			System.out.println(tUser.toString());
-			System.out.println("어디가 문제인가");
+			
 			ResultMap<ProjectImg> file = is.uploadFile(profile, imgUploadPath, "profile");
-			System.out.println(file);
 
 			if (birth != null)
 				tUser.setBirth(birth);

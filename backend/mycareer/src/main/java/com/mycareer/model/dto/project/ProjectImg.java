@@ -42,5 +42,11 @@ public class ProjectImg {
 		this.src = src;
 	}
 
+	public ProjectImg(String src, Project iProject) {
+		super();
+		this.src = src;
+		this.iProject = iProject;
+	}
+
 	
 }

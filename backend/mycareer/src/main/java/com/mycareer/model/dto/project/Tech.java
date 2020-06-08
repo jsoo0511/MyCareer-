@@ -36,4 +36,10 @@ public class Tech {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="project_no", referencedColumnName = "project_no")
 	Project tProject;
+
+	public Tech(String techName, Project tProject) {
+		super();
+		this.techName = techName;
+		this.tProject = tProject;
+	}
 }

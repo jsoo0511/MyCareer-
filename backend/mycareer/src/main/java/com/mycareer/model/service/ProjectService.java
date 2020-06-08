@@ -6,18 +6,26 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.Project;
 import com.mycareer.model.dto.project.Api;
+import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.dto.project.Role;
 import com.mycareer.model.dto.project.RoleDevelop;
 import com.mycareer.model.dto.project.Tech;
+import com.mycareer.model.dto.response.ProjectResponse;
+import com.mycareer.util.ResultMap;
 
 public interface ProjectService {
 
 	/** Project 관련 메서드 **/
 	List<Project> findAllByUserNo(int userNo);
+	ResultMap<List<ProjectResponse>> findAllProjectUserNo(int userNo);
 
 	// 프로젝트에 대한 저장 기능.
 	// 하나의 프로젝트에 대해 저장하기. 수정
-	Project saveProejctOne(Project project, int userNo, MultipartFile[] files);
+	Project saveProejctOne(Project project, List<String> techs, String role, 
+			int userNo, MultipartFile[] files);
+	
+	Project updateProjectOne(Project project, List<String> techs, String role, 
+			int userNo, MultipartFile[] files);
 
 	// 프로젝트 삭제 기능
 	int deleteProject(int projectNo);
@@ -43,7 +51,8 @@ public interface ProjectService {
 	int saveRoleDevelop(List<RoleDevelop> dList, int roleNo);
 
 	/** ProjectImg 관련 메서드 */
-
+	List<ProjectImg> findAllByProjectNo(int projectNo);
+	
 	/** Api관련 메서드 */
 
 	// apiNo를 통해 api하나에 대한 정보를 가져오기

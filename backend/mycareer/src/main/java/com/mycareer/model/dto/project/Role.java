@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "role")
@@ -35,5 +36,12 @@ public class Role {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "project_no", referencedColumnName = "project_no")
+	@ToString.Exclude
 	Project rProject;
+
+	public Role(String roleName, Project rProject) {
+		super();
+		this.roleName = roleName;
+		this.rProject = rProject;
+	}
 }
