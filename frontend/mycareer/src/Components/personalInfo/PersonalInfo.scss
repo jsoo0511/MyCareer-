@@ -56,12 +56,12 @@
         .info-left{
             display: inline-block;
             width: 56%;
-            text-align: right;
+            // text-align: right;
             margin-right: 3%;
             .text{
                 width: 80%;
                 max-width: 400px;
-                height: 30px;
+                height: 29.5px;
                 // border: 1px solid rgb(199, 199, 199);
                 background-color: rgb(236, 236, 236);
                 border: 0;
@@ -70,10 +70,59 @@
                 margin: 15px auto;
             }
             input[type="text"]:focus{
-                outline-color: green;
+                outline-color: rgb(191, 201, 191);
+                outline-style: 0.5px;
             }
             .check{
                 width: 20px;
+            }
+            .tools {
+                font-size: 17px;
+            }
+            .add-tool {
+                background-color: rgb(236, 236, 236);
+                border: 0;
+                border-radius: 3px 0 0 3px;
+                margin: 15px auto;
+                padding-left: 10px;
+                height: 30px;
+                width: 150px;
+
+            }
+            .add-btn {
+                border: 0;
+                height: 30px;
+                width: 50px;
+                background-color: gray;
+                color: white;
+                // font-size: 15px;
+                margin-right: 5px;
+            }
+            .tool {
+                display: inline-block;
+                // width: 50px;
+                height: 30px;
+                background-color: rgb(223, 180, 64);
+                color: white;
+                border-radius: 5px;
+                text-align: center;
+                margin: 5px 3px;
+                padding-top: 3.5px;
+                padding-bottom: 1px;
+                padding-left: 8px;
+                padding-right: 8px;
+                vertical-align: middle;
+                .tool-delete {
+                    width: 20px;
+                    display: inline-block;
+                    position: relative;
+                    // left: -27px;
+                    img {
+                        width: 60%;
+                        margin-left: 8px;
+                        margin-top: 1px;
+                    }
+                }
             }
         }
         .info-right{

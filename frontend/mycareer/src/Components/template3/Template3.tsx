@@ -132,12 +132,6 @@ class Template3 extends React.Component {
                     </div>
                     <span className="prjDate">프로젝트 기간 </span> <RangePicker className="date" />{" "}
                     <br />
-                    {/* <TextArea
-                        value={value}
-                        onChange={this.onChange}
-                        placeholder="Controlled autosize"
-                        autoSize={{ minRows: 3, maxRows: 5 }}
-                    /> */}
                     <span className="tools">사용한 기술 </span>
                     <input
                         className="add-tool"
