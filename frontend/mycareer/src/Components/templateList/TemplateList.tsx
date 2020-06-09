@@ -33,7 +33,7 @@ class TemplateList extends React.Component {
                                 />
                             </div>
                             <div className="tp-desc">
-                                <h4>템플릿2 어쩌구저쩌구</h4>
+                                <h4>템플릿2</h4>
                             </div>
                         </div>
                         <Link to="/t3">
@@ -45,69 +45,11 @@ class TemplateList extends React.Component {
                                     />
                                 </div>
                                 <div className="tp-desc">
-                                    <h4>템플릿3 어쩌구저쩌구</h4>
+                                    <h4>white</h4>
                                 </div>
                             </div>
                         </Link>
-                        <div className="tp">
-                            <div className="tp-img">
-                                <img
-                                    src="https://image.flaticon.com/icons/svg/888/888970.svg"
-                                    alt="tp"
-                                />
-                            </div>
-                            <div className="tp-desc">
-                                <h4>템플릿4 어쩌구저쩌구</h4>
-                            </div>
-                        </div>
-                        <div className="tp">
-                            <div className="tp-img">
-                                <img
-                                    src="https://image.flaticon.com/icons/svg/888/888970.svg"
-                                    alt="tp"
-                                />
-                            </div>
-                            <div className="tp-desc">
-                                <h4>템플릿5 어쩌구저쩌구</h4>
-                            </div>
-                        </div>
-                        <div className="tp">
-                            <div className="tp-img">
-                                <img
-                                    src="https://image.flaticon.com/icons/svg/888/888970.svg"
-                                    alt="tp"
-                                />
-                            </div>
-                            <div className="tp-desc">
-                                <h4>템플릿6 어쩌구저쩌구</h4>
-                            </div>
-                        </div>
-                        <div className="tp">
-                            <div className="tp-img">
-                                <img
-                                    src="https://image.flaticon.com/icons/svg/888/888970.svg"
-                                    alt="tp"
-                                />
-                            </div>
-                            <div className="tp-desc">
-                                <h4>템플릿 어쩌구저쩌구</h4>
-                            </div>
-                        </div>
-                        <div className="tp">
-                            <div className="tp-img">
-                                <img
-                                    src="https://image.flaticon.com/icons/svg/888/888970.svg"
-                                    alt="tp"
-                                />
-                            </div>
-                            <div className="tp-desc">
-                                <h4>템플릿 어쩌구저쩌구</h4>
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                        
                     </div>
                 </div>
                 <div className="tpList-footer">
