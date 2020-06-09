@@ -20,9 +20,13 @@ class ProjectList extends React.Component {
               <br />
               <Row>
                 <Col span={12}>
-                  <Button>인적사항 수정</Button>
+                  <Link to="/personal">
+                    <Button>인적사항 수정</Button>
+                  </Link>
                   &nbsp;&nbsp;
-                  <Button>회원정보 수정</Button>
+                  <Link to="/userInfo">
+                    <Button>회원정보 수정</Button>
+                  </Link>
                 </Col>
                 <Col span={6}></Col>
                 <Col span={6}>
@@ -44,6 +48,9 @@ class ProjectList extends React.Component {
                   &nbsp;
                   <li>
                     <img src="https://cdn.imweb.me/thumbnail/20200131/b13f5004d887a.png" />
+                  </li>
+                  <li className="new">
+                    <img src={require("../../img/t2.PNG")}/>
                   </li>
                 </ul>
               </div>

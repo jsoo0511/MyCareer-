@@ -1,31 +1,65 @@
 import React from "react";
+
 import "./PersonalInfo.scss";
+import cancelW from "../../img/close.png";
 
 class PersonalInfo extends React.Component {
     state = {
-        profile: '',
-        base64: ''
-    }
+        profile: "",
+        base64: "",
+        tools: Array<String>(),
+        newtool: "",
+    };
+
     fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // // console.log(e.target.files);
-        const reader = new FileReader()
-    
+        const reader = new FileReader();
+
         reader.onloadend = () => {
-          const base64 = reader.result
-          if (base64) {
-            this.setState({
-              base64: base64.toString()
-            })
-          }
-        }
+            const base64 = reader.result;
+            if (base64) {
+                this.setState({
+                    base64: base64.toString(),
+                });
+            }
+        };
         if (e.target.files) {
-          reader.readAsDataURL(e.target.files[0])
-    
-          this.setState({
-            profile: e.target.files[0]
-          })
+            reader.readAsDataURL(e.target.files[0]);
+
+            this.setState({
+                profile: e.target.files[0],
+            });
         }
-      }
+    };
+
+    inputTool = (e: React.ChangeEvent<HTMLInputElement>) => {
+        this.setState({
+            newtool: e.target.value,
+        });
+    };
+
+    addTool = () => {
+        var newtools = this.state.tools;
+        newtools.push(this.state.newtool);
+        this.setState({
+            newtool: "",
+            tools: newtools,
+        });
+    };
+
+    toolDelete = (e: any) => {
+        console.log(e.target.className);
+        var num = e.target.className;
+        num = num * 1;
+        var Ftools = this.state.tools.slice(0, num);
+        // console.log(num+1, this.state.tools.length)
+        var Btools = this.state.tools.slice(num + 1, this.state.tools.length);
+        // console.log(Btools)
+        this.setState({
+            tools: Ftools.concat(Btools),
+        });
+    };
+
     render() {
         return (
             <div className="personalInfo">
@@ -46,19 +80,48 @@ class PersonalInfo extends React.Component {
                     </div>
                 </div>
                 <div className="info">
-                    <h2 className="info-title">인적 사항 수정</h2><br/>
+                    <h2 className="info-title">인적 사항 수정</h2>
+                    <br />
                     <div className="info-left">
                         <input className="text" type="text" placeholder="git hub 주소" />
-                        <input className="check" type="checkbox" />
                         <br />
-                        <input className="text" type="text" placeholder="보유 기술" />
-                        <input className="check" type="checkbox" />
-                        <br />
+                        <input
+                            className="add-tool"
+                            onChange={this.inputTool}
+                            placeholder="보유 기술"
+                            type="text"
+                            value={this.state.newtool ? this.state.newtool : ""}
+                        ></input>
+                        <button className="add-btn" onClick={this.addTool}>
+                            +
+                        </button> 
+                        {this.state.tools ? (
+                            <>
+                                {this.state.tools.map((tool, idx) => {
+                                    return (
+                                        <>
+                                            <div className="tool">
+                                                {tool}
+                                                <div className="tool-delete">
+                                                    <img
+                                                        src={cancelW}
+                                                        alt="delete"
+                                                        className={idx + ""}
+                                                        onClick={(e) => this.toolDelete(e)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    );
+                                })}
+                                <br/>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                         <input className="text" type="text" placeholder="email" />
-                        <input className="check" type="checkbox" />
                         <br />
                         <input className="text" type="text" placeholder="연락처" />
-                        <input className="check" type="checkbox" />
                         <br />
                     </div>
                     <div className="info-right">
@@ -78,8 +141,7 @@ class PersonalInfo extends React.Component {
                             )}
                         </div>
                         <input className="profile-file" type="file" onChange={this.fileChange} />
-                        <input className="check" type="checkbox" />
-                        </div>
+                    </div>
                 </div>
             </div>
         );

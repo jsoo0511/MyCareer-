@@ -109,6 +109,18 @@ class Template2 extends Component {
                   <th className="table-title">SKILLS</th>
                   <td></td>
                 </tr>
+                <tr>
+                  <th></th>
+                  <td>
+                      Javascript
+                  </td>
+                </tr>
+                <tr>
+                  <th></th>
+                  <td>
+                      React
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -141,6 +153,8 @@ class Template2 extends Component {
               <div className="tab-title">결과물</div>
               <textarea className="textarea"> </textarea>
             </div>
+
+            <div id="save-btn">저장</div>
           </div>
         </div>
       </div>

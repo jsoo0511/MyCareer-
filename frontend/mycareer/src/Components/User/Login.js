@@ -13,37 +13,6 @@ const client_id = `420f98f96d5639a39a20`;
 const client_secret = `a1de767b054482f306b680628b42cafa5b7a8a88`;
 const redirect_uri = `http://localhost:3000/`;
 
-const onSuccess = async (response) => {
-  const code = response.code;
-  var req = new XMLHttpRequest();
-  req.onreadystatechange = async function () {
-    if (req.readyState == XMLHttpRequest.DONE) {
-      console.log(req.responseText);
-      const token = req.response.substring(17, 57);
-      await axios
-          .get(`https://api.github.com/user`, {
-            headers: {
-              Authorization: `token ${token}`,
-            },
-          })
-          .then((res) => console.log(res));
-    }
-  };
-
-  await req.open(
-    "POST",
-    "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
-    true
-  );
-  req.setRequestHeader("Accept", "application/json");
-  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  req.send(
-    `code=${code}&client_id=${client_id}&client_secret=${client_secret}`
-  );
-
-};
-const onFailure = (response) => console.error(response);
-
 // sign up
 const validateMessages = {
   required: "${label} is required!",
@@ -89,6 +58,12 @@ class Login extends React.Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
   handleOk = (e) => {
     console.log(e);
     this.setState({
@@ -103,6 +78,42 @@ class Login extends React.Component {
     });
   };
 
+  onSuccess = async (response) => {
+    const code = response.code;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = async function () {
+      if (req.readyState == XMLHttpRequest.DONE) {
+        console.log(req.responseText);
+        const token = req.response.substring(17, 57);
+        await axios
+          .get(`https://api.github.com/user`, {
+            headers: {
+              Authorization: `token ${token}`,
+            },
+          })
+          .then((res) => {
+            sessionStorage.setItem("username", res.data.name);
+            let loginBtn = document.querySelector("#loginMain");
+            loginBtn.innerHTML = res.data.name + " 님";
+          });
+      }
+    };
+    this.closeModal();
+
+    await req.open(
+      "POST",
+      "https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token",
+      true
+    );
+    req.setRequestHeader("Accept", "application/json");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(
+      `code=${code}&client_id=${client_id}&client_secret=${client_secret}`
+    );
+  };
+
+  onFailure = (response) => console.error(response);
+
   signInFinish = async (values) => {
     console.log("Success:", values);
     // 로그인 API 적용
@@ -110,27 +121,48 @@ class Login extends React.Component {
       .get(
         `http://13.124.227.192:8080/users/login?email=${values.email}&password=${values.password}`
       )
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        sessionStorage.setItem("username", res.data.name);
+        sessionStorage.setItem("userno", res.data.userNo);
+        let loginBtn = document.querySelector("#loginMain");
+        loginBtn.innerHTML = res.data.name + " 님";
+        this.closeModal();
+      });
   };
 
   signInFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  signUpFinish = (values) => {
+  signUpFinish = async (values) => {
     console.log("Success:", values);
+    let formData = new FormData();
+    formData.set("name", values.name);
+    formData.set("email", values.email);
+    formData.set("password", values.password);
+    await axios({
+      method: "post",
+      url: "http://13.124.227.192:8080/users/register",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (res) {
+        console.log(res);
+      })
+      .catch(function (res) {
+        console.log(res);
+      });
   };
 
   render() {
     return (
       <div>
-        <Button type="primary" onClick={this.showModal}>
-          로그인
+        <Button id="loginMain" type="primary" onClick={this.showModal}>
+          {sessionStorage.getItem("username") ? sessionStorage.getItem("username") + ' 님' : '로그인'}
         </Button>
         <Modal
-          // title="Sign In ✨ Sign Up"
           visible={this.state.visible}
-          // onOk={this.handleOk}
           okButtonProps={{ disabled: true }}
           onCancel={this.handleCancel}
         >
@@ -170,17 +202,13 @@ class Login extends React.Component {
                   <Button type="primary" htmlType="submit">
                     로그인 하기
                   </Button>
-                  {/* <img
-                    class="signInGithub"
-                    width="200px"
-                    src="https://coderwall-assets-0.s3.amazonaws.com/uploads/picture/file/4363/github.png"
-                    onClick={}
-                  /> */}
+                  &nbsp;
                   <GitHubLogin
+                    htmlType="submit"
                     clientId="420f98f96d5639a39a20"
                     redirectUri="http://localhost:3000/"
-                    onSuccess={onSuccess}
-                    onFailure={onFailure}
+                    onSuccess={this.onSuccess}
+                    onFailure={this.onFailure}
                   />
                 </Form.Item>
               </Form>
@@ -193,33 +221,31 @@ class Login extends React.Component {
                 validateMessages={validateMessages}
               >
                 <Form.Item
-                  name={["user", "name"]}
                   label="이름"
+                  name="name"
                   rules={[{ required: true }]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name={["user", "email"]}
                   label="이메일"
-                  rules={[{ type: "email" }]}
+                  name="email"
+                  rules={[{ required: true, type: "email" }]}
                 >
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  name={["user", "age"]}
-                  label="나이"
-                  rules={[{ type: "number", min: 0, max: 99 }]}
+                  label="비밀번호"
+                  name="password"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your password!",
+                    },
+                  ]}
                 >
-                  <InputNumber />
+                  <Input.Password />
                 </Form.Item>
-                <Form.Item name={["user", "website"]} label="나의 GitHub 주소">
-                  <Input />
-                </Form.Item>
-                <Form.Item name={["user", "introduction"]} label="내 소개">
-                  <Input.TextArea />
-                </Form.Item>
-
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                   <Button type="primary" htmlType="submit">
                     가입하기
