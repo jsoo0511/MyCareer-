@@ -1,7 +1,44 @@
 .template1 {
-  margin-top: 50px;
+  background-image: url("https://lh3.googleusercontent.com/proxy/iFZUJDcFcdVtybSaVhTdu7b3K0V1HDpN4G2Drk4aBCGHoK22Wd2AiDNjYTnLk4aKGkPDuRwWwJp70SJbVhCX368txUrvGmnaB1X8zGOuqjvZHFy5qJZbjNW-JbTUOIXk_EuQEkUFkUeqDm6eHDXcU4SY9OLcmzFTgDnq0GWHnYABiZeC");
+  background-repeat: no-repeat;
+  background-size: 1200px;
+  margin-left: 20%;
 
   .inputSpace {
     text-align: center;
+  }
+
+  Input,
+  TextArea {
+    width: 300px;
+  }
+
+  .fileSpace {
+    margin-top: 100px;
+    margin-left: 270px;
+  }
+
+  .avatar-uploader > .ant-upload {
+    width: 700px;
+    height: 400px;
+  }
+
+  .ant-upload-list-picture-card-container {
+    width: 700px;
+    height: 400px;
+  }
+
+  .ant-upload-list-picture-card .ant-upload-list-item {
+    width: 700px;
+    height: 400px;
+  }
+
+  .ant-upload.ant-upload-select-picture-card {
+    width: 700px;
+    height: 400px;
+  }
+
+  .inputs {
+    margin-left: 200px;
   }
 }
