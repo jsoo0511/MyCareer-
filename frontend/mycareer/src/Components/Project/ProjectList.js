@@ -49,6 +49,9 @@ class ProjectList extends React.Component {
                   <li>
                     <img src="https://cdn.imweb.me/thumbnail/20200131/b13f5004d887a.png" />
                   </li>
+                  <li className="new">
+                    <img src={require("../../img/t2.PNG")}/>
+                  </li>
                 </ul>
               </div>
             </div>
