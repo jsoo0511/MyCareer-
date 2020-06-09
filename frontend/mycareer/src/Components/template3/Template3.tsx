@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { DatePicker } from "antd";
 
 import "./Template3.scss";
@@ -37,11 +38,11 @@ class Template3 extends React.Component {
         num = num * 1;
         var Ftools = this.state.tools.slice(0, num);
         // console.log(num+1, this.state.tools.length)
-        var Btools = this.state.tools.slice(num+1, this.state.tools.length);
+        var Btools = this.state.tools.slice(num + 1, this.state.tools.length);
         // console.log(Btools)
         this.setState({
-            tools: Ftools.concat(Btools)
-        })
+            tools: Ftools.concat(Btools),
+        });
     };
 
     inputImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +118,9 @@ class Template3 extends React.Component {
                         <h2>My Career</h2>
                     </div>
                     <div className="save">
-                        <button>저장하고 나가기</button>
+                        <Link to="/ProjectList">
+                            <button>저장하고 나가기</button>
+                        </Link>
                     </div>
                 </div>{" "}
                 <br />
@@ -152,7 +155,7 @@ class Template3 extends React.Component {
                                                 <img
                                                     src={cancelW}
                                                     alt="delete"
-                                                    className={idx+""}
+                                                    className={idx + ""}
                                                     onClick={(e) => this.toolDelete(e)}
                                                 />
                                             </div>
@@ -196,7 +199,13 @@ class Template3 extends React.Component {
                             multiple
                         ></input>
                     </div>
-                    {this.state.images.length === 0 ? <><div className="preview"></div></> : <></>}
+                    {this.state.images.length === 0 ? (
+                        <>
+                            <div className="preview"></div>
+                        </>
+                    ) : (
+                        <></>
+                    )}
                     <div>
                         {this.state.base64[0] && (
                             <div className="preview">
