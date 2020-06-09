@@ -123,7 +123,7 @@ public class ProjectServiceImpl implements ProjectService {
 			pr.save(project);
 			if (!Objects.isNull(files)) {
 				String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
-				ResultMap<List<ProjectImg>> prImg = is.uploadFiles(files, imgUploadPath, "ProjectImg");
+				ResultMap<List<ProjectImg>> prImg = is.uploadFiles(files, imgUploadPath, "projectimg");
 				for (ProjectImg pimg : prImg.getData()) {
 					ProjectImg tmp = new ProjectImg(pimg.getSrc());
 					tmp.setIProject(project);
@@ -154,7 +154,7 @@ public class ProjectServiceImpl implements ProjectService {
 			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
 			System.out.println("어디가 문제인가");
 			if (!Objects.isNull(is.uploadFiles(files, imgUploadPath, "ProjectImg").getData())) {
-				List<ProjectImg> prImg = is.uploadFiles(files, imgUploadPath, "ProjectImg").getData();
+				List<ProjectImg> prImg = is.uploadFiles(files, imgUploadPath, "projectimg").getData();
 				List<ProjectImg> tradeOrigin = pir.findAllByiProjectProjectNo(project.getProjectNo());
 				int oldlen = tradeOrigin.size();
 				System.out.println("올드 : " + oldlen);

@@ -119,11 +119,11 @@ public class ProjectController {
 	public ResponseEntity<Object> saveProject(
 			@RequestParam String projectTitle,
 			@RequestParam String startDate, 
-			@RequestParam String endDate, @RequestParam String projectInfo, @RequestParam(name = "인원 members") int members,
+			@RequestParam String endDate, @RequestParam String projectInfo, @RequestParam int members,
 			@RequestParam String url,
-			@RequestParam(name = "맡은 역할 role") String role,
-			@RequestParam(name = "사용한 기술 techs") List<String> techs, @RequestParam int templateNo,
-			@ModelAttribute("files") MultipartFile[] files, @PathVariable int userNo) {
+			@RequestParam String role,
+			@RequestParam List<String> techs, @RequestParam int templateNo,
+			@RequestParam MultipartFile[] files, @PathVariable int userNo) {
 		
 		if (!Objects.isNull(us.findByUserNo(userNo))) {
 			Project newProject = new Project(projectTitle, projectInfo, members, url, startDate, endDate, templateNo);
@@ -140,7 +140,7 @@ public class ProjectController {
 			@RequestParam String url,
 			@RequestParam(name = "맡은 역할 role") String role,
 			@RequestParam(name = "사용한 기술 techs") List<String> techs, @RequestParam int templateNo,
-			@ModelAttribute("files") MultipartFile[] files, 
+			@RequestParam MultipartFile[] files, 
 			@PathVariable int userNo, @RequestParam int projectNo) {
 		Project newProject = ps.findByProjectNo(projectNo);
 		newProject.setProjectTitle(projectTitle);
