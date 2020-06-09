@@ -49,18 +49,19 @@ class TemplateList extends React.Component {
                                 </div>
                             </div>
                         </Link>
-                        
                     </div>
                 </div>
                 <div className="tpList-footer">
                     <div className="back">
-                        <button>
-                            <img
-                                className="back-icon"
-                                src="https://image.flaticon.com/icons/svg/2223/2223615.svg"
-                                alt="back-icon"
-                            ></img>
-                        </button>
+                        <Link to="/ProjectList">
+                            <button>
+                                <img
+                                    className="back-icon"
+                                    src="https://image.flaticon.com/icons/svg/2223/2223615.svg"
+                                    alt="back-icon"
+                                ></img>
+                            </button>
+                        </Link>
                     </div>
                     <div className="tp-info">
                         <h4>템플릿을 선택하세요</h4>
