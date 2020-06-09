@@ -1,13 +1,17 @@
 package com.mycareer.model.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mycareer.model.dto.Project;
+import com.mycareer.model.dto.User;
 import com.mycareer.model.dto.project.Api;
+import com.mycareer.model.dto.project.ProjectImg;
 import com.mycareer.model.dto.project.Role;
 import com.mycareer.model.dto.project.RoleDevelop;
 import com.mycareer.model.dto.project.Tech;
@@ -17,12 +21,15 @@ import com.mycareer.model.repo.ProjectRepository;
 import com.mycareer.model.repo.RoleDevelopRepository;
 import com.mycareer.model.repo.RoleRepository;
 import com.mycareer.model.repo.TechRepository;
+import com.mycareer.util.ResultMap;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
 	@Autowired
 	ProjectRepository pr;
+	@Autowired
+	UserService us;
 
 	@Autowired
 	RoleRepository rr;
@@ -30,6 +37,8 @@ public class ProjectServiceImpl implements ProjectService {
 	RoleDevelopRepository dr;
 	@Autowired
 	ProjectImgRepository ir;
+	@Autowired
+	ImageServiceImpl is;
 
 	@Autowired
 	ApiRepository ar;
@@ -72,10 +81,25 @@ public class ProjectServiceImpl implements ProjectService {
 	// 프로젝트에 대한 저장 기능
 	// 하나의 프로젝트만 저장하기
 	@Override
-	public Project saveProejctOne(Project project) {
+	public Project saveProejctOne(Project project, int userNo, MultipartFile[] files) {
 		try {
-			pr.save(project);
-			return project;
+			User findUser = us.findByUserNo(userNo);
+			System.out.println(project.getProjectNo());
+			Project nProject = new Project(project.getProjectTitle(), project.getProjectInfo(),
+					project.getContribution(), project.getUrl(), project.getStartDay(), project.getEndDay());
+			nProject.setPUser(findUser);
+
+			if (!Objects.isNull(files)) {
+				String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
+				ResultMap<List<ProjectImg>> prImg = is.uploadFiles(files, imgUploadPath, "ProjectImg");
+				for (ProjectImg pimg : prImg.getData()) {
+					ProjectImg tmp = new ProjectImg(pimg.getSrc());
+					tmp.setIProject(nProject);
+					ir.save(tmp);
+				}
+			}
+			pr.save(nProject);
+			return nProject;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

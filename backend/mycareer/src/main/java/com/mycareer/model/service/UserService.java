@@ -23,7 +23,7 @@ public interface UserService {
 	// 로그인
 	User login(String email, String password);
 	// 회원가입
-	User signUp(User user, String profile);
+	User signUp(User user);
 	// 회원 정보 수정
 	User updateUser(User user, String profile);
 	// 회원 정보 삭제(탈퇴)

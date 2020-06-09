@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.mycareer.model.dto.user.Award;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Setter
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "userNo")
 public class User {
 
 	@Id
